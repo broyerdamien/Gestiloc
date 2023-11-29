@@ -57,3 +57,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
    RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' |  bash \
        && apt install symfony-cli
 
+COPY install-node.sh /install-node.sh
+RUN bash /install-node.sh
+
