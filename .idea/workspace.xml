@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="181d0c7b-5f70-49dc-9423-0cf1b373d1a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker/conf/php/install-node.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/conf/php/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/conf/php/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,7 +298,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dbroyer/Projet_sqli/gestiloc&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dbroyer/Projet_sqli/gestiloc/www/assets/images&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -309,6 +308,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/www/assets/images" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner configuration_file="$PROJECT_DIR$/www/phpunit.xml.dist" scope="XML" use_alternative_configuration_file="true" />
@@ -327,6 +331,9 @@
       <workItem from="1701157239473" duration="3407000" />
       <workItem from="1701164236744" duration="8251000" />
       <workItem from="1701252825792" duration="2364000" />
+      <workItem from="1701331890712" duration="19304000" />
+      <workItem from="1701767612514" duration="693000" />
+      <workItem from="1701769895673" duration="7488000" />
     </task>
     <servers />
   </component>

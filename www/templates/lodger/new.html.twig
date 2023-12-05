@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Lodger{% endblock %}
+
+{% block body %}
+    <h1>Create new Lodger</h1>
+
+    {{ include('lodger/_form.html.twig') }}
+
+    <a href="{{ path('app_lodger_index') }}">back to list</a>
+{% endblock %}
