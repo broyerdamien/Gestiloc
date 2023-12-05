@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lodger index{% endblock %}
+
+{% block body %}
+    <h1>Lodger index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Firstname</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Mail</th>
+                <th>DateOfBirth</th>
+                <th>Job</th>
+                <th>Salary</th>
+                <th>Sex</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lodger in lodgers %}
+            <tr>
+                <td>{{ lodger.id }}</td>
+                <td>{{ lodger.name }}</td>
+                <td>{{ lodger.firstname }}</td>
+                <td>{{ lodger.address }}</td>
+                <td>{{ lodger.phone }}</td>
+                <td>{{ lodger.mail }}</td>
+                <td>{{ lodger.dateOfBirth ? lodger.dateOfBirth|date('Y-m-d') : '' }}</td>
+                <td>{{ lodger.job }}</td>
+                <td>{{ lodger.salary }}</td>
+                <td>{{ lodger.sex }}</td>
+                <td>
+                    <a href="{{ path('app_lodger_show', {'id': lodger.id}) }}">show</a>
+                    <a href="{{ path('app_lodger_edit', {'id': lodger.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_lodger_new') }}">Create new</a>
+{% endblock %}

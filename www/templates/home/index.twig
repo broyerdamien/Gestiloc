@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestiloc{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-5 "> Bienvenue sur {{ website }} </h1>
+    <section class="container home-page-session">
+
+        <div class="row ">
+            <div class=" col-md-5 home-page-logo mt-5 ">
+                <img src="{{ asset('build/images/gestiloc.png') }} " class=" rounded float-start img-fluid" alt="">
+            </div>
+            <div class=" col-md-2">
+
+            </div>
+            <div class="col-md-5 home-page-div justify-content-center px-5 mt-5 text-center ">
+                <h2> Gérez vos biens immobiliers avec le meilleur logiciel gratuit de gestion locative immobilière </h2>
+                <p>Gestiloc est le meilleur logiciel de gestion locative immobilière en ligne. Suivi des loyers et
+                    charges,
+                    comptabilité, aide à la déclaration des revenus fonciers...
+                    Les différentes étapes de la vie du contrat de location sont couvertes par notre site.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

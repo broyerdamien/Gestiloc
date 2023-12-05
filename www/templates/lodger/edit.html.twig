@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Lodger{% endblock %}
+
+{% block body %}
+    <h1>Edit Lodger</h1>
+
+    {{ include('lodger/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_lodger_index') }}">back to list</a>
+
+    {{ include('lodger/_delete_form.html.twig') }}
+{% endblock %}
