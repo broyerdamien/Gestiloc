@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Property;
+use App\Entity\Lodger;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/property')]
 class PropertyController extends AbstractController
@@ -30,6 +32,12 @@ class PropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($form->get('lodgers')->getData() as $lodger) {
+                $property->addLodger($lodger);
+                $lodger->setProperty($property); // Assurez-vous de cette ligne
+                $entityManager->persist($lodger); // Persistez chaque lodger
+            }
+
             $entityManager->persist($property);
             $entityManager->flush();
 
@@ -38,9 +46,10 @@ class PropertyController extends AbstractController
 
         return $this->render('property/new.html.twig', [
             'property' => $property,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_property_show', methods: ['GET'])]
     public function show(Property $property): Response
@@ -54,9 +63,15 @@ class PropertyController extends AbstractController
     public function edit(Request $request, Property $property, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PropertyType::class, $property);
+//        dump($property);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+//            foreach ($property->getLodgers() as $lodger) {
+//                if ($entityManager->contains($lodger)) {
+//                    $property->addLodger($lodger);
+//                    $entityManager->persist($lodger);
+//                }
+//            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_property_index', [], Response::HTTP_SEE_OTHER);
@@ -64,14 +79,17 @@ class PropertyController extends AbstractController
 
         return $this->render('property/edit.html.twig', [
             'property' => $property,
-            'form' => $form,
+            'form' => $form->createView()
         ]);
     }
 
+
+//dump($property->getLodgers());
+//die();
     #[Route('/{id}', name: 'app_property_delete', methods: ['POST'])]
     public function delete(Request $request, Property $property, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$property->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->request->get('_token'))) {
             $entityManager->remove($property);
             $entityManager->flush();
         }

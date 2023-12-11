@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
@@ -54,6 +56,15 @@ class Property
 
     #[ORM\Column(nullable: true)]
     private ?float $rentalCharges = null;
+
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Lodger::class,cascade: ['all'])]
+    private Collection $lodgers;
+
+    public function __construct()
+    {
+        $this->lodgers = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -224,6 +235,51 @@ class Property
     public function setRentalCharges(?float $rentalCharges): static
     {
         $this->rentalCharges = $rentalCharges;
+
+        return $this;
+    }
+//    public function setLodgers(array $lodgers): self
+//    {
+//        foreach ($this->lodgers as $lodger){
+//            $this->removeLodger($lodger);
+//        }
+//        $this->lodgers->clear();
+//        foreach ($lodgers as $lodger){
+//            $this->addLodger($lodger);
+//        }
+//        return $this;
+//    }
+    /**
+     * @return Collection<int, Lodger>
+     */
+    public function getLodgers(): Collection
+    {
+        return $this->lodgers;
+    }
+
+    public function addLodger(Lodger $lodger): self
+    {dump($lodger);
+        if (!$this->lodgers->contains($lodger)) {
+            $lodger->setProperty($this); // Assurez-vous de cette ligne
+            $this->lodgers[] = $lodger;
+        }
+
+        return $this;
+    }
+
+
+    public function removeLodger(Lodger $lodger): self
+    {
+        if($this->lodgers->contains($lodger)){
+            $lodger->setProperty(null);
+            $this->lodgers->removeElement($lodger);
+        }
+//        if ($this->lodgers->removeElement($lodger)) {
+//            // set the owning side to null (unless already changed)
+//            if ($lodger->getProperty() === $this) {
+//                $lodger->setProperty(null);
+//            }
+//        }
 
         return $this;
     }
