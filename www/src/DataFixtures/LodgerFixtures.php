@@ -7,9 +7,9 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Lodger;
 use Faker\Factory;
 use Monolog\DateTimeImmutable;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-
-class LodgerFixtures extends Fixture
+class LodgerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -17,7 +17,7 @@ class LodgerFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $Lodger = new Lodger();
             //Ce Faker va nous permettre d'alimenter l'instance de Season que l'on souhaite ajouter en base
-            $Lodger->setName($faker->name);
+            $Lodger->setName($faker->lastName);
             $Lodger->setFirstname($faker->firstName);
             $Lodger->setAddress($faker->address);
             $Lodger->setPhone($faker->phoneNumber);
@@ -26,9 +26,16 @@ class LodgerFixtures extends Fixture
             $Lodger->setJob($faker->jobTitle);
             $Lodger->setSalary($faker->randomFloat(1, 1300, 3000));
             $Lodger->setSex($faker->randomElement(['Homme', 'Femme']));
+            $Lodger->setProperty($this->getReference(PropertyFixtures::PROPERTY_REFERENCE . rand(0, 9)));
 
             $manager->persist($Lodger);
         }
         $manager->flush();
+    }
+    public function getDependencies()
+    {
+        return [
+            PropertyFixtures::class,
+        ];
     }
 }
