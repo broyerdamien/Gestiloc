@@ -9,7 +9,10 @@ use Faker\Factory;
 use Monolog\DateTimeImmutable;
 
 class PropertyFixtures extends Fixture
+
 {
+    public const PROPERTY_REFERENCE = 'property';
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
@@ -17,7 +20,7 @@ class PropertyFixtures extends Fixture
             $property = new property();
             //Ce Faker va nous permettre d'alimenter l'instance de Season que l'on souhaite ajouter en base
             $property->setType($faker->randomElement(['Villa', 'Appartement', 'garage','place de parking']));
-            $property->setName($faker->name);
+            $property->setName($faker->lastName);
             $property->setAddress($faker->address);
             $property->setBuilding($faker->name);
             $property->setEtage($faker->randomNumber(1,10));
@@ -33,6 +36,7 @@ class PropertyFixtures extends Fixture
 
 
             $manager->persist($property);
+            $this->addReference(self::PROPERTY_REFERENCE . $i, $property);
         }
         $manager->flush();
     }
