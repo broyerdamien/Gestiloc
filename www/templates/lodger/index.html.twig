@@ -20,6 +20,7 @@
                             {#                            <th>DateOfBirth</th> #}
                             {#                            <th>Job</th> #}
                             <th>Salary</th>
+                            <th>Property</th>
                             {#                            <th>Sex</th> #}
                             <th>actions</th>
                         </tr>
@@ -36,6 +37,11 @@
                                 {#                                <td>{{ lodger.dateOfBirth ? lodger.dateOfBirth|date('Y-m-d') : '' }}</td> #}
                                 {#                                <td>{{ lodger.job }}</td> #}
                                 <td>{{ lodger.salary }}</td>
+                                <td>   {% if lodger.property %}
+                                    {{ lodger.property.name }}
+                                {% else %}
+                                    Pas de propriété
+                                {% endif %}</td>
                                 {#                                <td>{{ lodger.sex }}</td> #}
                                 <td>
                                     <a href="{{ path('app_lodger_show', {'id': lodger.id}) }}">show</a>

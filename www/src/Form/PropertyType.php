@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Property;
+use App\Entity\Lodger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PropertyType extends AbstractType
 {
@@ -25,7 +27,14 @@ class PropertyType extends AbstractType
             ->add('bedroom')
             ->add('bathroom')
             ->add('loyer')
-            ->add('rentalCharges')
+            // ... autres champs ...
+            ->add('lodgers', EntityType::class, [
+                'class' => Lodger::class,
+                'choice_label' => 'name', // ou toute autre propriété que vous souhaitez afficher
+                'multiple' => true, // Permet de sélectionner plusieurs lodgers
+                'expanded' => true, // Affiche sous forme de cases à cocher
+            ]);
+        ;
         ;
     }
 

@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Lodger;
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property
 {
@@ -54,6 +56,14 @@ class Property
 
     #[ORM\Column(nullable: true)]
     private ?float $rentalCharges = null;
+
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Lodger::class)]
+    private Collection $lodgers;
+
+    public function __construct()
+    {
+        $this->lodgers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -227,4 +237,34 @@ class Property
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Lodger>
+     */
+    public function getLodgers(): Collection
+    {
+        return $this->lodgers;
+    }
+
+    public function addLodger(Lodger $lodger): self
+    {
+        if (!$this->lodgers->contains($lodger)) {
+            $this->lodgers[] = $lodger;
+            $lodger->setProperty($this); // Assurez-vous de définir la propriété dans Lodger
+        }
+
+        return $this;
+    }
+
+    public function removeLodger(Lodger $lodger): self
+    {
+        if ($this->lodgers->removeElement($lodger)) {
+            if ($lodger->getProperty() === $this) {
+                $lodger->setProperty(null); // Enlevez la propriété si elle est déjà définie
+            }
+        }
+
+        return $this;
+    }
+
 }
