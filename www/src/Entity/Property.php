@@ -6,7 +6,7 @@ use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Lodger;
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property
 {
@@ -57,14 +57,13 @@ class Property
     #[ORM\Column(nullable: true)]
     private ?float $rentalCharges = null;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Lodger::class,cascade: ['all'])]
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Lodger::class)]
     private Collection $lodgers;
 
     public function __construct()
     {
         $this->lodgers = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -238,17 +237,7 @@ class Property
 
         return $this;
     }
-//    public function setLodgers(array $lodgers): self
-//    {
-//        foreach ($this->lodgers as $lodger){
-//            $this->removeLodger($lodger);
-//        }
-//        $this->lodgers->clear();
-//        foreach ($lodgers as $lodger){
-//            $this->addLodger($lodger);
-//        }
-//        return $this;
-//    }
+
     /**
      * @return Collection<int, Lodger>
      */
@@ -258,29 +247,24 @@ class Property
     }
 
     public function addLodger(Lodger $lodger): self
-    {dump($lodger);
+    {
         if (!$this->lodgers->contains($lodger)) {
-            $lodger->setProperty($this); // Assurez-vous de cette ligne
             $this->lodgers[] = $lodger;
+            $lodger->setProperty($this); // Assurez-vous de définir la propriété dans Lodger
         }
 
         return $this;
     }
-
 
     public function removeLodger(Lodger $lodger): self
     {
-        if($this->lodgers->contains($lodger)){
-            $lodger->setProperty(null);
-            $this->lodgers->removeElement($lodger);
+        if ($this->lodgers->removeElement($lodger)) {
+            if ($lodger->getProperty() === $this) {
+                $lodger->setProperty(null); // Enlevez la propriété si elle est déjà définie
+            }
         }
-//        if ($this->lodgers->removeElement($lodger)) {
-//            // set the owning side to null (unless already changed)
-//            if ($lodger->getProperty() === $this) {
-//                $lodger->setProperty(null);
-//            }
-//        }
 
         return $this;
     }
+
 }

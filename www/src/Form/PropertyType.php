@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-
 class PropertyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -28,15 +27,14 @@ class PropertyType extends AbstractType
             ->add('bedroom')
             ->add('bathroom')
             ->add('loyer')
-            ->add('rentalCharges')
+            // ... autres champs ...
             ->add('lodgers', EntityType::class, [
                 'class' => Lodger::class,
-                'choice_label' => function($lodger) {
-                    return $lodger->getName() . ' ' . $lodger->getFirstname();
-                },
-                'multiple' => true,
-                'expanded' => true // mettre à true si vous voulez des checkboxes
-            ])
+                'choice_label' => 'name', // ou toute autre propriété que vous souhaitez afficher
+                'multiple' => true, // Permet de sélectionner plusieurs lodgers
+                'expanded' => true, // Affiche sous forme de cases à cocher
+            ]);
+        ;
         ;
     }
 

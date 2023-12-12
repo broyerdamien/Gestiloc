@@ -41,7 +41,7 @@ class Lodger
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $sex = null;
 
-    #[ORM\ManyToOne(targetEntity: Property::class, inversedBy: 'lodgers', cascade:['all'])]
+    #[ORM\ManyToOne(inversedBy: 'lodgers')]
     private ?Property $property = null;
 
     public function getId(): ?int
@@ -162,11 +162,10 @@ class Lodger
         return $this->property;
     }
 
-    public function setProperty(?Property $property): self
+    public function setProperty(?Property $property): static
     {
         $this->property = $property;
 
         return $this;
     }
-
 }

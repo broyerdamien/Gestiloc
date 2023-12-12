@@ -20,7 +20,6 @@
 {#                            <th>Numero</th>#}
                             <th>Country</th>
                             <th>PostCode</th>
-                            <th>Lodgers</th>
 {#                            <th>Area</th>#}
 {#                            <th>NumberOfParts</th>#}
 {#                            <th>Bedroom</th>#}
@@ -42,14 +41,6 @@
 {#                                <td>{{ property.numero }}</td>#}
                                 <td>{{ property.country }}</td>
                                 <td>{{ property.postCode }}</td>
-                                <td>
-                                    <ul>
-                                        {% for lodger in property.lodgers %}
-{#                                            {{ dump(properties) }}#}
-                                            <li>{{ lodger.name }} </li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
 {#                                <td>{{ property.area }}</td>#}
 {#                                <td>{{ property.numberOfParts }}</td>#}
 {#                                <td>{{ property.bedroom }}</td>#}
