@@ -12,6 +12,7 @@ class PropertyFixtures extends Fixture
 
 {
     public const PROPERTY_REFERENCE = 'property';
+    public const PROPERTY_LOCATION_REFERENCE = 'Property';
 
     public function load(ObjectManager $manager): void
     {

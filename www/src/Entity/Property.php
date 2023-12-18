@@ -60,9 +60,13 @@ class Property
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: Lodger::class)]
     private Collection $lodgers;
 
+    #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'properties')]
+    private Collection $locations;
+
     public function __construct()
     {
         $this->lodgers = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -262,6 +266,33 @@ class Property
             if ($lodger->getProperty() === $this) {
                 $lodger->setProperty(null); // Enlevez la propriété si elle est déjà définie
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): static
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations->add($location);
+            $location->addProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): static
+    {
+        if ($this->locations->removeElement($location)) {
+            $location->removeProperty($this);
         }
 
         return $this;
