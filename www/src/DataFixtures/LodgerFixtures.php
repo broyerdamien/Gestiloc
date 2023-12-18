@@ -11,8 +11,11 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class LodgerFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const LODGERS_REFERENCE = 'lodgers';
     public function load(ObjectManager $manager): void
     {
+        $noLodger = new Lodger();
+        $noLodger->setName("Aucun locataire");
 
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 10; $i++) {
@@ -30,6 +33,8 @@ class LodgerFixtures extends Fixture implements DependentFixtureInterface
             $Lodger->setProperty($this->getReference(PropertyFixtures::PROPERTY_REFERENCE . rand(0, 9)));
 
             $manager->persist($Lodger);
+            $this->addReference(self::LODGERS_REFERENCE . $i, $Lodger);
+
         }
         $manager->flush();
     }

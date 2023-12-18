@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LodgerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,14 @@ class Lodger
 
     #[ORM\ManyToOne(inversedBy: 'lodgers')]
     private ?Property $property = null;
+
+    #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'lodgers')]
+    private Collection $locations;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,6 +175,33 @@ class Lodger
     public function setProperty(?Property $property): static
     {
         $this->property = $property;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): static
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations->add($location);
+            $location->addLodger($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): static
+    {
+        if ($this->locations->removeElement($location)) {
+            $location->removeLodger($this);
+        }
 
         return $this;
     }
