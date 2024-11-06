@@ -1,0 +1,67 @@
+.custom-navbar-bg {
+  z-index: 2;
+  background-color: white;
+  height: 10rem;
+  border-bottom: 0.2rem solid $secondary-color;
+
+  .align-header {
+    align-items: end;
+    height: 100%;
+    @include media-breakpoint-down(lg) {
+      align-items: baseline;
+    }
+
+    .navbar-brand {
+      height: 100%;
+    }
+
+    .navbar-collapse {
+      max-width: 70.3rem;
+      height: 4.6rem;
+      align-items: start;
+      @include media-breakpoint-down(lg) {
+        max-width: none;
+      }
+
+      ul {
+        gap: 3.2rem;
+
+        .nav-item {
+          .active {
+            @extend .txt-menu-header;
+            color: $secondary-color;
+
+          }
+
+
+          .nav-link {
+            transition: text-decoration-color 0.3s;
+            text-decoration: underline;
+            text-decoration-thickness: 0.2rem;
+            text-decoration-color: transparent;
+            text-underline-offset: 0.2rem;
+
+            &:hover {
+              transition: text-decoration-color 0.3s;
+              text-decoration-color: $secondary-color;
+            }
+          }
+
+          .dropdown-menu {
+            border-radius: 1rem;
+            background-color: $secondary-color;
+
+            .dropdown-item {
+              color: $txt-header-color;
+              font-size: 1.4rem;
+              font-weight: 700;
+              line-height: 110%;
+              text-transform: uppercase;
+
+            }
+          }
+        }
+      }
+    }
+  }
+}

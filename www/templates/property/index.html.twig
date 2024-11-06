@@ -3,84 +3,93 @@
 {% block title %}Property index{% endblock %}
 
 {% block body %}
-    <h1 class='text-center'>Property index</h1>
-    <div class="container">
-        <div class="row">
-            <div class="col-6 col-md-12">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Type</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            {#                            <th>Building</th> #}
-                            {#                            <th>Etage</th> #}
-                            {#                            <th>Numero</th> #}
-                            <th>Country</th>
-                            <th>PostCode</th>
-                            <th>Lodgers</th>
-                            {#                            <th>Area</th> #}
-                            {#                            <th>NumberOfParts</th> #}
-                            {#                            <th>Bedroom</th> #}
-                            {#                            <th>Bathroom</th> #}
-                            <th>Loyer</th>
-                            {#                            <th>RentalCharges</th> #}
-                            <th>actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for property in properties %}
-                            <tr>
-                                <td>{{ property.id }}</td>
-                                <td>{{ property.type }}</td>
-                                <td>{{ property.name }}</td>
-                                <td>{{ property.address }}</td>
-                                {#                                <td>{{ property.building }}</td> #}
-                                {#                                <td>{{ property.etage }}</td> #}
-                                {#                                <td>{{ property.numero }}</td> #}
-                                <td>{{ property.country }}</td>
-                                <td>{{ property.postCode }}</td>
-                                <td>
-                                    {% if property.lodgers|length > 0 %}
-                                        <ul class="list-unstyled">
-                                            {% for lodger in property.lodgers %}
-                                                <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
-                                            {% endfor %}
-                                        </ul>
+    <div class="container-fluid h-100">
+        <div class="row flex-nowrap">
+            <!-- Navbar latérale -->
+            {% include '@shared/sidebare.html.twig' %}
+            <main role="main" class="col-md-10 ml-sm-auto px-4">
+                <h1 class='text-center'>Property index</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Type</th>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        {#                            <th>Building</th> #}
+                                        {#                            <th>Etage</th> #}
+                                        {#                            <th>Numero</th> #}
+                                        <th>Country</th>
+                                        <th>PostCode</th>
+                                        <th>Lodgers</th>
+                                        {#                            <th>Area</th> #}
+                                        {#                            <th>NumberOfParts</th> #}
+                                        {#                            <th>Bedroom</th> #}
+                                        {#                            <th>Bathroom</th> #}
+                                        <th>Loyer</th>
+                                        {#                            <th>RentalCharges</th> #}
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for property in properties %}
+                                        <tr>
+                                            <td>{{ property.id }}</td>
+                                            <td>{{ property.type }}</td>
+                                            <td>{{ property.name }}</td>
+                                            <td>{{ property.address }}</td>
+                                            {#                                <td>{{ property.building }}</td> #}
+                                            {#                                <td>{{ property.etage }}</td> #}
+                                            {#                                <td>{{ property.numero }}</td> #}
+                                            <td>{{ property.country }}</td>
+                                            <td>{{ property.postCode }}</td>
+                                            <td>
+                                                {% if property.lodgers|length > 0 %}
+                                                    <ul class="list-unstyled">
+                                                        {% for lodger in property.lodgers %}
+                                                            <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% else %}
+                                                    <ul>
+                                                        No lodgers
+                                                    </ul>
+                                                {% endif %}
+                                            </td>
+                                            {#                                <td>{{ property.area }}</td> #}
+                                            {#                                <td>{{ property.numberOfParts }}</td> #}
+                                            {#                                <td>{{ property.bedroom }}</td> #}
+                                            {#                                <td>{{ property.bathroom }}</td> #}
+                                            <td>{{ property.loyer }}</td>
+                                            {#                                <td>{{ property.rentalCharges }}</td> #}
+                                            <td>
+                                                <a href="{{ path('app_property_show', {'id': property.id}) }}">show</a>
+                                                <a href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
+                                            </td>
+                                        </tr>
                                     {% else %}
-                                        <ul>
-                                            No lodgers
-                                        </ul>
-                                    {% endif %}
-                                </td>
-                                {#                                <td>{{ property.area }}</td> #}
-                                {#                                <td>{{ property.numberOfParts }}</td> #}
-                                {#                                <td>{{ property.bedroom }}</td> #}
-                                {#                                <td>{{ property.bathroom }}</td> #}
-                                <td>{{ property.loyer }}</td>
-                                {#                                <td>{{ property.rentalCharges }}</td> #}
-                                <td>
-                                    <a href="{{ path('app_property_show', {'id': property.id}) }}">show</a>
-                                    <a href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="16">no records found</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                                        <tr>
+                                            <td colspan="16">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="d-flex justify-content-center">
+
+                    <a href="{{ path('app_property_new') }}" class=" btn button-color">Create
+                        new</a>
+
+                </div>
+            </main>
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
-
-        <a href="{{ path('app_property_new') }}" class=" btn button-color rounded-4 m-3 px-4 py-2">Create new</a>
-
     </div>
 
 {% endblock %}

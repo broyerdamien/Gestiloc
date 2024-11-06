@@ -1,0 +1,50 @@
+@use "sass:map";
+
+// Home-page
+
+.home-page-session {
+  position: relative;
+  height: 90rem;
+
+  .home-page-logo img {
+    width: 40rem;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .home-page-children {
+    justify-content: center;
+    text-align: center;
+    @include media-breakpoint-down(lg) {
+      margin-top: map-get($space, space800);
+    }
+  }
+}
+
+.home-page-session::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../images/home_gestiloc.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+// Side-bar
+.button-hover-sideBar:hover {
+  background-color: $secondary-color;
+}
+
+.fixed-width-sidebar {
+  width: 20rem;
+}
+
+
+
+

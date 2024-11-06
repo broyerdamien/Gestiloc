@@ -1,0 +1,95 @@
+@use "sass:map";
+
+$primary-color: #e0e5e9;
+$secondary-color: #74DBCF;
+$txt-header-color: #282A2C;
+$titre-color-black: #393939;
+$bg-sidebar: #f9f9f9;
+
+//color logo
+$gris-fonce: #4C5255;
+$blue-primary: #74DBCF;
+$gris-claire: #8D8D8F;
+$gris-tres-clair: #9C9CA4;
+
+body {
+  background-color: white;
+}
+
+// container
+$gestiloc-container-big: 1200px;
+$gestiloc-container: 1040px;
+
+$space: (
+        space0: 0,
+        space050: 0.4rem,
+        space100: 0.8rem,
+        space150: 1.2rem,
+        space250: 2rem,
+        space400: 3.2rem,
+        space500: 4rem,
+        space600: 4.8rem,
+        space800: 6.4rem,
+        space1000: 8rem,
+        space1200: 9.6rem,
+        space1400: 11.2rem,
+        space1600: 12.8rem
+);
+// Title
+.title-h1-home {
+  h1 {
+    color: $titre-color-black;
+    font-size: 4.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 110%;
+    padding-top: map-get($space, space800);
+    padding-bottom: map-get($space, space800);
+    text-align: center;
+    @include media-breakpoint-down(lg) {
+      font-size: 4.2rem;
+    }
+  }
+}
+
+.title-h2 {
+  color: $titre-color-black;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 110%;
+  @include media-breakpoint-down(lg) {
+    font-size: 3.1rem;
+  }
+}
+
+// Text
+.txt-content p {
+  color: $titre-color-black;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 150%;
+  margin: 0;
+}
+
+.txt-menu-header{
+    color: $txt-header-color;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: uppercase;
+}
+
+// Button
+%button-base {
+  padding: 1rem 2rem;
+}
+.button-color {
+  @extend %button-base;
+  background-color: $secondary-color;
+  border-radius: 5rem;
+}
+
+// Margin
+.margin-title-bottom {
+  margin-bottom: map.get($space, space250);
+}

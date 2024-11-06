@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-
 # Mettre à jour et installer les dépendances nécessaires
 RUN apt-get update && apt-get install -y \
     libfreetype-dev \

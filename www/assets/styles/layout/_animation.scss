@@ -1,0 +1,84 @@
+// Variables pour l'animation personnalisée
+$anime-time: 8s;
+$box-size: 300px;
+$clip-distance: .05;
+$clip-size: $box-size * (1 + $clip-distance * 2);
+$path-width: 2px;
+$main-color: #74DBCF;
+
+
+// Mixin pour positionnement complet
+%full-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+// Styles et animation pour l'élément .logo-home-anim
+.logo-home-anim {
+  visibility: hidden;
+  animation: slideInFromLeft 1s ease-out 0.5s forwards;
+  position: relative;
+  width: $box-size;
+  height: $box-size;
+  margin: auto;
+  background: white no-repeat 50% / 70% rgba(#000, .1);
+  color: $main-color;
+  box-shadow: inset 0 0 0 1px rgba($main-color, .5);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+
+  &::before,
+  &::after {
+    @extend %full-fill;
+    content: '';
+    z-index: -1;
+    margin: -1 * $clip-distance * 100%;
+    box-shadow: inset 0 0 0 $path-width;
+    animation: clipMe $anime-time linear infinite;
+    border-radius: 10px;
+  }
+
+  &::before {
+    animation-delay: $anime-time * -.5;
+  }
+}
+
+// Keyframes pour l'animation clipMe
+@keyframes clipMe {
+  0%, 100% {
+    clip: rect(0px, $clip-size, $path-width, 0px);
+  }
+  25% {
+    clip: rect(0px, $path-width, $clip-size, 0px);
+  }
+  50% {
+    clip: rect($clip-size - $path-width, $clip-size, $clip-size, 0px);
+  }
+  75% {
+    clip: rect(0px, $clip-size, $clip-size, $clip-size - $path-width);
+  }
+}
+
+// Votre animation slideInFromLeft
+@keyframes slideInFromLeft {
+  from {
+    visibility: visible;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// Application de l'animation slideInFromLeft
+.text-home-anim {
+  visibility: hidden;
+  animation: slideInFromLeft 1s ease-out 1.5s forwards;
+}
