@@ -3,6 +3,11 @@
 {% block title %}Location index{% endblock %}
 
 {% block body %}
+<div class="container-fluid h-100">
+    <div class="row flex-nowrap">
+        <!-- Navbar latérale -->
+        {% include '@shared/sidebare.html.twig' %}
+        <main role="main" class="col-md-10 ml-sm-auto px-4">
     <h1 class='text-center'>Location index</h1>
     <div class="container">
         <div class="row">
@@ -83,6 +88,9 @@
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        <a href="{{ path('app_location_new') }}" class="btn button-color m-3 px-4 py-2 rounded-4">Create new</a>
+        <a href="{{ path('app_location_new') }}" class="btn button-color ">Create new</a>
     </div>
+        </main>
+    </div>
+</div>
 {% endblock %}

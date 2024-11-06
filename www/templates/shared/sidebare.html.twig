@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm bg-body-sidebar col-md-2 d-lg-block d-none min-vh-100 fixed-width-sidebar">
+    <div class="container-fluid flex-column px-0">
+        <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse flex-column w-100 " id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-column w-100 text-center">
+                <li class="nav-item button-hover-sideBar w-100">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_lodger_index' ? 'active' : '' }}" href="{{ path('app_lodger_index') }}">Lodger</a>
+                </li>
+                <li class="nav-item button-hover-sideBar">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_property_index' ? 'active' : '' }}" href="{{ path('app_property_index') }}">Property</a>
+                </li>
+                <li class="nav-item button-hover-sideBar">
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_location_index' ? 'active' : '' }}" href="{{ path('app_location_index') }}">Location</a>
+                </li>
+                <li class="nav-item button-hover-sideBar">
+                    <a class="btn " data-bs-toggle="collapse" href="#collapseExample" role="button"
+                       aria-expanded="false" aria-controls="collapseExample">
+                        Finance
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            Finance
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            Finance
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>

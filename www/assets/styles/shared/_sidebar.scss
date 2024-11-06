@@ -1,0 +1,10 @@
+@use "sass:map";
+
+.bg-body-sidebar{
+  background-color: $bg-sidebar;
+}
+.nav-link.active {
+  color: $blue-primary!important;
+  font-weight: bold;
+
+}

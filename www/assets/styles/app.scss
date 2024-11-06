@@ -1,5 +1,9 @@
-
+@import "config/variables-bootstrap";
 @import "~bootstrap/scss/bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
-@import "variables";
-@import "style";
+@import "config/variables";
+@import "layout/main";
+@import "layout/header";
+@import "layout/home";
+@import "layout/animation";
+@import "shared/sidebar";
