@@ -3,8 +3,19 @@
 .bg-body-sidebar{
   background-color: $bg-sidebar;
 }
-.nav-link.active {
+
+.button-hover-sideBar:hover {
+  background-color: $secondary-color;
+}
+
+.fixed-width-sidebar {
+  width: 20rem;
+  padding-top: 0;
+}
+.hover-side.active {
   color: $blue-primary!important;
   font-weight: bold;
-
+  &:hover{
+    background-color: $gris-footer;
+  }
 }

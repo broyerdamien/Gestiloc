@@ -36,15 +36,11 @@
   z-index: -1;
 }
 
-// Side-bar
-.button-hover-sideBar:hover {
-  background-color: $secondary-color;
-}
+.home-color {
+  color: $blue-primary!important;
+  font-weight: bold;
 
-.fixed-width-sidebar {
-  width: 20rem;
 }
-
 
 
 
