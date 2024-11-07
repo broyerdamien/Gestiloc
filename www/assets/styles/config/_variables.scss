@@ -8,6 +8,7 @@ $bg-sidebar: #f9f9f9;
 
 //color logo
 $gris-fonce: #4C5255;
+$gris-footer: #46464f;
 $blue-primary: #74DBCF;
 $gris-claire: #8D8D8F;
 $gris-tres-clair: #9C9CA4;
@@ -71,18 +72,21 @@ $space: (
   margin: 0;
 }
 
-.txt-menu-header{
+.txt-menu-header {
+  a {
     color: $txt-header-color;
     font-size: 1.4rem;
     font-weight: 700;
     line-height: 110%;
     text-transform: uppercase;
+  }
 }
 
 // Button
 %button-base {
   padding: 1rem 2rem;
 }
+
 .button-color {
   @extend %button-base;
   background-color: $secondary-color;
