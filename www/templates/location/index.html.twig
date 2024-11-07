@@ -8,12 +8,12 @@
         <!-- Navbar latérale -->
         {% include '@shared/sidebare.html.twig' %}
         <main role="main" class="col-md-10 ml-sm-auto px-4">
-    <h1 class='text-center'>Location index</h1>
+    <h2 class='text-center title-h2'>Location index</h2>
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-head">
                         <thead>
                         <tr>
                             <th>Id</th>
@@ -72,8 +72,16 @@
                                 <td>{{ location.endDate ? location.endDate|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>{{ location.etat ? 'Yes' : 'No' }}</td>
                                 <td>
-                                    <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
-                                    <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle dropdown-actions" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="{{ asset('build/images/three_dots_icon.svg') }}">
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-actions">
+                                            <li><a class="dropdown-item" href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_location_show', {'id': location.id}) }}">show</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         {% else %}
