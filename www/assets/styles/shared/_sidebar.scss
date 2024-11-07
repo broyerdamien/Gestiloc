@@ -1,6 +1,6 @@
 @use "sass:map";
 
-.bg-body-sidebar{
+.bg-body-sidebar {
   background-color: $bg-sidebar;
 }
 
@@ -12,10 +12,14 @@
   width: 20rem;
   padding-top: 0;
 }
+
 .hover-side.active {
-  color: $blue-primary!important;
+  color: $blue-primary !important;
   font-weight: bold;
-  &:hover{
-    background-color: $gris-footer;
+  background-color: $gris-footer;
+
+  &:hover {
+    background-color: $blue-primary;
+    color: $gris-footer !important;
   }
 }

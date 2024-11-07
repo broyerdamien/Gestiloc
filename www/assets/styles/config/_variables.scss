@@ -2,6 +2,7 @@
 
 $primary-color: #e0e5e9;
 $secondary-color: #74DBCF;
+$hover-secondary-color: #64C6BA;
 $txt-header-color: #282A2C;
 $titre-color-black: #393939;
 $bg-sidebar: #f9f9f9;
@@ -82,6 +83,18 @@ $space: (
   }
 }
 
+.table-head {
+  thead {
+    th {
+      color: $txt-header-color;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 110%;
+      text-transform: uppercase;
+    }
+  }
+}
+
 // Button
 %button-base {
   padding: 1rem 2rem;
@@ -91,6 +104,10 @@ $space: (
   @extend %button-base;
   background-color: $secondary-color;
   border-radius: 5rem;
+
+  &:hover {
+    background-color: $hover-secondary-color;
+  }
 }
 
 // Margin

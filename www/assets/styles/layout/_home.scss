@@ -37,9 +37,12 @@
 }
 
 .home-color {
-  color: $blue-primary!important;
+  color: $blue-primary !important;
   font-weight: bold;
 
+  &:hover {
+    color: $txt-header-color !important;
+  }
 }
 
 
