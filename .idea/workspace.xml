@@ -20,13 +20,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/www/src/Entity/Lodger.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/www/src/Entity/Property.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/www/src/Entity/Lodger.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/www/src/Entity/Property.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/gestiloc/vendor/doctrine/doctrine-migrations-bundle" />
       <path value="$PROJECT_DIR$/gestiloc/vendor/doctrine/doctrine-bundle" />
@@ -293,6 +293,7 @@
 }</component>
   <component name="ProjectId" id="2Ykswo1l6eJCohWiz9VBQ7HTLI3" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -301,7 +302,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dbroyer/Projet_sqli/jotul&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dbroyer/Projet_sqli/gestiloc/www/assets/images&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -314,8 +315,13 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/www/assets/images" />
+      <recent name="$PROJECT_DIR$/www/assets/svg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/www/assets/styles/shared" />
+      <recent name="$PROJECT_DIR$/www/assets/styles/layout" />
+      <recent name="$PROJECT_DIR$/www/assets/styles/config" />
+      <recent name="$PROJECT_DIR$/www/templates/shared" />
       <recent name="$PROJECT_DIR$/www/templates/property" />
     </key>
   </component>
@@ -328,7 +334,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-74080bdb84d3-com.jetbrains.php.sharedIndexes-PS-233.11799.297" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.18034.69" />
+        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.18034.69" />
       </set>
     </attachedChunks>
   </component>
@@ -355,6 +362,61 @@
       <workItem from="1702482111959" duration="859000" />
       <workItem from="1702543143064" duration="997000" />
       <workItem from="1702887586042" duration="8998000" />
+      <workItem from="1703002101267" duration="28133000" />
+      <workItem from="1704184189861" duration="1208000" />
+      <workItem from="1704965371091" duration="1329000" />
+      <workItem from="1705045721503" duration="1374000" />
+      <workItem from="1705074658743" duration="595000" />
+      <workItem from="1705231010853" duration="599000" />
+      <workItem from="1705306618355" duration="599000" />
+      <workItem from="1705333919341" duration="1247000" />
+      <workItem from="1705391929131" duration="832000" />
+      <workItem from="1705484813109" duration="599000" />
+      <workItem from="1705501214312" duration="576000" />
+      <workItem from="1705524945881" duration="599000" />
+      <workItem from="1705565412443" duration="599000" />
+      <workItem from="1705650833498" duration="21000" />
+      <workItem from="1705907816987" duration="1893000" />
+      <workItem from="1705997029553" duration="599000" />
+      <workItem from="1706257732806" duration="2000" />
+      <workItem from="1706514466719" duration="599000" />
+      <workItem from="1706862563243" duration="599000" />
+      <workItem from="1707120322048" duration="599000" />
+      <workItem from="1707205428148" duration="599000" />
+      <workItem from="1707294684960" duration="599000" />
+      <workItem from="1707302625343" duration="599000" />
+      <workItem from="1707305195629" duration="668000" />
+      <workItem from="1707313509236" duration="599000" />
+      <workItem from="1707375599200" duration="599000" />
+      <workItem from="1707380808507" duration="23000" />
+      <workItem from="1712216076125" duration="11239000" />
+      <workItem from="1712236741902" duration="390000" />
+      <workItem from="1712738600979" duration="694000" />
+      <workItem from="1712823471746" duration="22000" />
+      <workItem from="1713170822555" duration="24000" />
+      <workItem from="1713188820239" duration="1833000" />
+      <workItem from="1713450262854" duration="28000" />
+      <workItem from="1714477592213" duration="18000" />
+      <workItem from="1716467122478" duration="876000" />
+      <workItem from="1717007120581" duration="689000" />
+      <workItem from="1717051345213" duration="596000" />
+      <workItem from="1717055317752" duration="599000" />
+      <workItem from="1717078252121" duration="598000" />
+      <workItem from="1717138670081" duration="13000" />
+      <workItem from="1717402093883" duration="7000" />
+      <workItem from="1717483665798" duration="26000" />
+      <workItem from="1717487574409" duration="35000" />
+      <workItem from="1717574958643" duration="1211000" />
+      <workItem from="1717592505647" duration="803000" />
+      <workItem from="1717751330606" duration="1873000" />
+      <workItem from="1730388668579" duration="2195000" />
+      <workItem from="1730391202737" duration="3265000" />
+      <workItem from="1730710061555" duration="4296000" />
+      <workItem from="1730817615129" duration="2398000" />
+      <workItem from="1730898496013" duration="29023000" />
+      <workItem from="1731052574883" duration="4853000" />
+      <workItem from="1731132779909" duration="3278000" />
+      <workItem from="1731399890026" duration="2108000" />
     </task>
     <servers />
   </component>

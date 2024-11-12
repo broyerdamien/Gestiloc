@@ -2,7 +2,7 @@
   z-index: 2;
   background-color: white;
   height: 10rem;
-  border-bottom: 0.2rem solid $secondary-color;
+  border-bottom: 0.2rem solid $blue-primary;
 
   .align-header {
     align-items: end;
@@ -31,7 +31,7 @@
         .nav-item {
           .active {
             @extend .txt-menu-header;
-            color: $secondary-color;
+            color: $blue-primary;
           }
 
 
@@ -44,13 +44,13 @@
 
             &:hover {
               transition: text-decoration-color 0.3s;
-              text-decoration-color: $secondary-color;
+              text-decoration-color: $blue-primary;
             }
           }
 
           .dropdown-menu {
             border-radius: 1rem;
-            background-color: $secondary-color;
+            background-color: $blue-primary;
 
             .dropdown-item {
               color: $txt-header-color;

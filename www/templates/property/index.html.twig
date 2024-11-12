@@ -16,16 +16,18 @@
                                 <table class="table table-head">
                                     <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Lots</th>
                                         <th>Type</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
+                                        <th>Area</th>
+                                        <th>Rooms</th>
+                                        <th>Lodgers</th>
+                                        {#                                        <th>Address</th> #}
                                         {#                            <th>Building</th> #}
                                         {#                            <th>Etage</th> #}
                                         {#                            <th>Numero</th> #}
-                                        <th>Country</th>
-                                        <th>PostCode</th>
-                                        <th>Lodgers</th>
+                                        {#                                        <th>Country</th> #}
+                                        {#                                        <th>PostCode</th> #}
+
                                         {#                            <th>Area</th> #}
                                         {#                            <th>NumberOfParts</th> #}
                                         {#                            <th>Bedroom</th> #}
@@ -38,17 +40,12 @@
                                     <tbody>
                                     {% for property in properties %}
                                         <tr>
-                                            <td>{{ property.id }}</td>
+                                            <td>{{ property.name }}<br>{{ property.numero }} {{ property.address }}
+                                                <br>{{ property.postCode }} {{ property.country }}</td>
                                             <td>{{ property.type }}</td>
-                                            <td>{{ property.name }}</td>
-                                            <td>{{ property.address }}</td>
-                                            {#                                <td>{{ property.building }}</td> #}
-                                            {#                                <td>{{ property.etage }}</td> #}
-                                            {#                                <td>{{ property.numero }}</td> #}
-                                            <td>{{ property.country }}</td>
-                                            <td>{{ property.postCode }}</td>
-                                            <td>
-                                                {% if property.lodgers|length > 0 %}
+                                            <td>{{ property.area }}</td>
+                                            <td>{{ property.numberOfParts }}</td>
+                                            <td> {% if property.lodgers|length > 0 %}
                                                     <ul class="list-unstyled">
                                                         {% for lodger in property.lodgers %}
                                                             <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
@@ -58,23 +55,37 @@
                                                     <ul>
                                                         No lodgers
                                                     </ul>
-                                                {% endif %}
-                                            </td>
-                                            {#                                <td>{{ property.area }}</td> #}
-                                            {#                                <td>{{ property.numberOfParts }}</td> #}
-                                            {#                                <td>{{ property.bedroom }}</td> #}
-                                            {#                                <td>{{ property.bathroom }}</td> #}
+                                                {% endif %}</td>
+                                            {#                                            #}{#                                <td>{{ property.building }}</td> #}
+                                            {#                                            #}{#                                <td>{{ property.etage }}</td> #}
+                                            {#                                            #}{#                                <td>{{ property.numero }}</td> #}
+                                            {#                                            <td>{{ property.country }}</td> #}
+                                            {#                                            <td>{{ property.postCode }}</td> #}
+                                            {#                                            <td> #}
+                                            {#                                            </td> #}
+                                            {#                                            #}{#                                <td>{{ property.area }}</td> #}
+                                            {#                                            #}{#                                <td>{{ property.numberOfParts }}</td> #}
+                                            {#                                            #}{#                                <td>{{ property.bedroom }}</td> #}
+                                            {#                                            #}{#                                <td>{{ property.bathroom }}</td> #}
                                             <td>{{ property.loyer }}</td>
                                             {#                                <td>{{ property.rentalCharges }}</td> #}
                                             <td>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle dropdown-actions" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <button class="btn btn-secondary dropdown-toggle dropdown-actions"
+                                                            type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
                                                         <img src="{{ asset('build/images/three_dots_icon.svg') }}">
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-actions">
-                                                        <li><a class="dropdown-item" href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a></li>
-                                                        <li><a class="dropdown-item" href="{{ path('app_property_show', {'id': property.id}) }}">show</a></li>
-                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ path('app_property_show', {'id': property.id}) }}">show</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a>
+                                                        </li>
+                                                        <li>{{ include('property/_delete_form.html.twig') }}</li>
                                                     </ul>
                                                 </div>
                                             </td>

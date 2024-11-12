@@ -23,8 +23,8 @@ class LodgerFixtures extends Fixture implements DependentFixtureInterface
             //Ce Faker va nous permettre d'alimenter l'instance de Season que l'on souhaite ajouter en base
             $Lodger->setName($faker->lastName);
             $Lodger->setFirstname($faker->firstName);
-            $Lodger->setAddress($faker->address);
-            $Lodger->setPhone($faker->phoneNumber);
+            $Lodger->setAddress($faker->streetName);
+            $Lodger->setPhone($this->formatPhoneNumber($faker->phoneNumber));
             $Lodger->setMail($faker->email());
             $Lodger->setDateOfBirth(DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-30 years', '-18 years')));
             $Lodger->setJob($faker->jobTitle);
@@ -44,4 +44,16 @@ class LodgerFixtures extends Fixture implements DependentFixtureInterface
             PropertyFixtures::class,
         ];
     }
+    private function formatPhoneNumber($phone)
+    {
+        // Supprime tous les caractères non numériques
+        $phone = preg_replace('/\D+/', '', $phone);
+
+        // Assure que le numéro est exactement de 10 chiffres
+        $phone = substr($phone, 0, 10);
+
+        // Formate le numéro en ajoutant des espaces tous les deux chiffres
+        return preg_replace('/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/', '$1 $2 $3 $4 $5', $phone);
+    }
+
 }
