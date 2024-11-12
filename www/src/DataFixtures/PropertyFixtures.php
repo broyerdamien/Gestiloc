@@ -34,7 +34,6 @@ class PropertyFixtures extends Fixture
             $property->setNumberOfParts($faker->randomNumber(1,10));
             $property->setBedroom($faker->randomNumber(1,4));
             $property->setBathroom($faker->randomNumber(1,4));
-            $property->setLoyer($faker->randomFloat(2, 1, 3000));
             $property->setRentalCharges($faker->randomFloat(2, 1, 800));
 
 

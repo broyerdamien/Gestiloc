@@ -37,6 +37,9 @@ class Location
     private Collection $lodgers;
     private ?Lodger $lodger = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $loyer = null;
+
     public function getLodger(): ?Lodger
     {
         return $this->lodger;
@@ -168,6 +171,18 @@ class Location
     public function removeLodger(Lodger $lodger): static
     {
         $this->lodgers->removeElement($lodger);
+
+        return $this;
+    }
+
+    public function getLoyer(): ?float
+    {
+        return $this->loyer;
+    }
+
+    public function setLoyer(?float $loyer): static
+    {
+        $this->loyer = $loyer;
 
         return $this;
     }

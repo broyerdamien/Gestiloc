@@ -51,8 +51,6 @@ class Property
     #[ORM\Column(nullable: true)]
     private ?int $bathroom = null;
 
-    #[ORM\Column]
-    private ?float $loyer = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $rentalCharges = null;
@@ -214,18 +212,6 @@ class Property
     public function setBathroom(?int $bathroom): static
     {
         $this->bathroom = $bathroom;
-
-        return $this;
-    }
-
-    public function getLoyer(): ?float
-    {
-        return $this->loyer;
-    }
-
-    public function setLoyer(float $loyer): static
-    {
-        $this->loyer = $loyer;
 
         return $this;
     }
