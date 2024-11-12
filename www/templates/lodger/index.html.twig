@@ -18,14 +18,13 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Firstname</th>
+                                        <th>Property</th>
                                         <th>Address</th>
                                         <th>Phone</th>
                                         <th>Mail</th>
                                         {#                            <th>DateOfBirth</th> #}
                                         {#                            <th>Job</th> #}
                                         <th>Salary</th>
-                                        <th>Property</th>
                                         {#                            <th>Sex</th> #}
                                         <th>actions</th>
                                     </tr>
@@ -34,21 +33,22 @@
                                     {% for lodger in lodgers %}
                                         <tr>
                                             <td>{{ lodger.id }}</td>
-                                            <td>{{ lodger.name }}</td>
-                                            <td>{{ lodger.firstname }}</td>
+                                            <td>{{ lodger.name }} {{ lodger.firstname }}</td>
+                                            <td>   {% if lodger.property %}
+                                                    {{ lodger.property.name }}<br>
+                                                    {{ lodger.property.numero }}  {{ lodger.property.address }}<br>
+                                                    {{ lodger.property.postCode }}  {{ lodger.property.country }}
+                                                {% else %}
+                                                    Pas de propriété
+                                                {% endif %}</td>
                                             <td>{{ lodger.address }}</td>
                                             <td>{{ lodger.phone }}</td>
                                             <td>{{ lodger.mail }}</td>
                                             {#                                <td>{{ lodger.dateOfBirth ? lodger.dateOfBirth|date('Y-m-d') : '' }}</td> #}
                                             {#                                <td>{{ lodger.job }}</td> #}
                                             <td>{{ lodger.salary }}</td>
-                                            <td>   {% if lodger.property %}
-                                                    {{ lodger.property.name }}
-                                                {% else %}
-                                                    Pas de propriété
-                                                {% endif %}</td>
                                             {#                                <td>{{ lodger.sex }}</td> #}
-                                            <td>
+                                            <td class="border-left">
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle dropdown-actions" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <img src="{{ asset('build/images/three_dots_icon.svg') }}">
@@ -57,6 +57,7 @@
                                                         <li><a class="dropdown-item" href="{{ path('app_lodger_edit', {'id': lodger.id}) }}">edit</a></li>
                                                         <li><a class="dropdown-item" href="{{ path('app_lodger_show', {'id': lodger.id}) }}">show</a></li>
                                                         <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                       <li>{{ include('lodger/_delete_form.html.twig') }}</li>
                                                     </ul>
                                                 </div>
                                             </td>

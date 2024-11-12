@@ -1,12 +1,31 @@
-.dropdown-actions{
-  background-color:$secondary-color ;
-  border-radius:1rem;
-  &:hover{
-    //background-color:$secondary-color ;
+.dropdown-actions {
+  background-color: $blue-primary;
+  border-radius: 1rem;
+
+  &:hover {
     background-color: $hover-secondary-color;
-    transition: background-color 0.3ms;
+    transition: background-color 0.3s;
   }
 }
-.dropdown-menu-actions{
-  border-radius:1rem ;
+
+.dropdown-menu-actions {
+  border-radius: 1rem;
+
+  li {
+
+    a.dropdown-item {
+      padding-top: 3.75px;
+      padding-bottom: 3.75px;
+
+      &:hover {
+        background-color: $gris-footer;
+        color: $blue-primary;
+      }
+    }
+  }
+}
+
+// Pour le style de la table
+.border-left {
+  border-left: 1px solid #dee2e6;
 }

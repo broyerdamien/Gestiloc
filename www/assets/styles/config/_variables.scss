@@ -1,7 +1,6 @@
 @use "sass:map";
 
 $primary-color: #e0e5e9;
-$secondary-color: #74DBCF;
 $hover-secondary-color: #64C6BA;
 $txt-header-color: #282A2C;
 $titre-color-black: #393939;
@@ -93,20 +92,64 @@ $space: (
       text-transform: uppercase;
     }
   }
+
+  tbody {
+    tr {
+      td {
+        color: $txt-header-color;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 110%;
+        text-transform: capitalize;
+
+        ul {
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.table-txt {
+  color: $txt-header-color;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 110%;
+  text-transform: capitalize;
 }
 
 // Button
 %button-base {
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
+  gap: 1rem;
+  color: $titre-color-black;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 110%;
+  text-transform: uppercase;
 }
 
 .button-color {
   @extend %button-base;
-  background-color: $secondary-color;
-  border-radius: 5rem;
+  background-color: $blue-primary;
+  //border-radius: 5rem;
 
   &:hover {
     background-color: $hover-secondary-color;
+  }
+}
+
+.button-delete {
+  width: 100%;
+  text-align: start;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 110%;
+
+  &:hover {
+    background-color: $gris-footer;
+    color: $blue-primary;
   }
 }
 
