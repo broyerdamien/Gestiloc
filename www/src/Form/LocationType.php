@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -34,6 +35,9 @@ class LocationType extends AbstractType
             ->add('startDate')
             ->add('endDate')
             ->add('etat')
+            ->add('loyer', NumberType::class, [
+                'required' => false,
+            ])
             ->add('properties')
             ->add('lodgers')
             ->add('properties', EntityType::class, [

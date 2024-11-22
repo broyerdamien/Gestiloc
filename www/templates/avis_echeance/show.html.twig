@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AvisEcheance{% endblock %}
+
+{% block body %}
+    <h1>AvisEcheance</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ avis_echeance.id }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ avis_echeance.dateFin ? avis_echeance.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PaymentStatus</th>
+                <td>{{ avis_echeance.paymentStatus.value }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ avis_echeance.amount }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_avis_echeance_index') }}">back to list</a>
+
+    <a href="{{ path('app_avis_echeance_edit', {'id': avis_echeance.id}) }}">edit</a>
+
+    {{ include('avis_echeance/_delete_form.html.twig') }}
+{% endblock %}

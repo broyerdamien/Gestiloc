@@ -16,6 +16,8 @@
                 </li>
                 <li class="nav-item txt-menu-header">
                     <a class="nav-link button-hover-sideBar hover-side {{ app.request.attributes.get('_route') == 'app_location_index' ? 'active' : '' }}" href="{{ path('app_location_index') }}">Location</a>
+                </li><li class="nav-item txt-menu-header">
+                    <a class="nav-link button-hover-sideBar hover-side {{ app.request.attributes.get('_route') == 'app_avis_echeance_index' ? 'active' : '' }}" href="{{ path('app_avis_echeance_index') }}">Avis d'écheance</a>
                 </li>
                 <li class="nav-item txt-menu-header">
                     <a class="btn button-hover-sideBar " data-bs-toggle="collapse" href="#collapseExample" role="button"

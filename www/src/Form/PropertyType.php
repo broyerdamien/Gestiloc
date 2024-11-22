@@ -26,7 +26,6 @@ class PropertyType extends AbstractType
             ->add('numberOfParts')
             ->add('bedroom')
             ->add('bathroom')
-            ->add('loyer')
             // ... autres champs ...
             ->add('lodgers', EntityType::class, [
                 'class' => Lodger::class,
