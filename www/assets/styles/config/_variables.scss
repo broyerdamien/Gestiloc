@@ -1,11 +1,12 @@
 @use "sass:map";
 
 $primary-color: #e0e5e9;
-$hover-secondary-color: #64C6BA;
+$hover-secondary-color: #64c6be;
 $txt-header-color: #282A2C;
 $titre-color-black: #393939;
 $bg-sidebar: #f9f9f9;
-
+$primary-white: #FFFFFF;
+$primary-black: #000000;
 //color logo
 $gris-fonce: #4C5255;
 $gris-footer: #46464f;
@@ -14,7 +15,7 @@ $gris-claire: #8D8D8F;
 $gris-tres-clair: #9C9CA4;
 
 body {
-  background-color: white;
+  background-color: $primary-white;
 }
 
 // container
@@ -110,7 +111,26 @@ $space: (
     }
   }
 }
-
+.table-show{
+  tbody{
+    tr{
+      th{
+        color: $txt-header-color;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 110%;
+        text-transform: uppercase;
+      }
+      td{
+        color: $txt-header-color;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 110%;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
 .table-txt {
   color: $txt-header-color;
   font-size: 1.4rem;
@@ -152,8 +172,11 @@ $space: (
     color: $blue-primary;
   }
 }
-
+.delete-selected-btn {
+  display: none;
+}
 // Margin
 .margin-title-bottom {
   margin-bottom: map.get($space, space250);
 }
+

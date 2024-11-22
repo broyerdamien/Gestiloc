@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Location;
 use App\Form\LocationType;
+use App\Repository\AvisEcheanceRepository;
 use App\Repository\LocationRepository;
+use App\Service\AvisEcheanceService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Carbon\Carbon;
+use App\Entity\AvisEcheance;
 
 #[Route('/location')]
 class LocationController extends AbstractController
@@ -43,11 +47,24 @@ class LocationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
-    public function show(Location $location): Response
+    public function show(Location $location, AvisEcheanceRepository $avisEcheanceRepository): Response
     {
+
+        $avisEcheances = $avisEcheanceRepository->findBy(['location' => $location]);
+
         return $this->render('location/show.html.twig', [
             'location' => $location,
+            'avis_echeances' => $avisEcheances,
         ]);
+    }
+
+    #[Route('/{id}/generate_avis_echeance', name: 'app_location_generate_avis_echeance', methods: ['GET', 'POST'])]
+    public function generateAvisEcheance(Location $location, AvisEcheanceService $avisEcheanceService): Response
+    {
+        $avisEcheanceService->generateOneAvisEcheance($location);
+        $this->addFlash('success', 'Avis d\'échéance généré avec succès.');
+
+        return $this->redirectToRoute('app_location_show', ['id' => $location->getId()]);
     }
 
     #[Route('/{id}/edit', name: 'app_location_edit', methods: ['GET', 'POST'])]
@@ -71,11 +88,12 @@ class LocationController extends AbstractController
     #[Route('/{id}', name: 'app_location_delete', methods: ['POST'])]
     public function delete(Request $request, Location $location, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$location->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $location->getId(), $request->request->get('_token'))) {
             $entityManager->remove($location);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

@@ -3,40 +3,136 @@
 {% block title %}Location{% endblock %}
 
 {% block body %}
-    <h1>Location</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ location.id }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ location.Type }}</td>
-            </tr>
-            <tr>
-                <th>Depot</th>
-                <td>{{ location.Depot }}</td>
-            </tr>
-            <tr>
-                <th>StartDate</th>
-                <td>{{ location.startDate ? location.startDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndDate</th>
-                <td>{{ location.endDate ? location.endDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Etat</th>
-                <td>{{ location.etat ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid h-100">
+    <div class="row flex-nowrap">
+        <!-- Navbar latérale -->
+        {% include '@shared/sidebare.html.twig' %}
+        <main role="main" class="col-md-10 ml-sm-auto px-4">
+            <h2 class='text-center title-h2'>Location index</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-head">
+                                <table class="table table-show">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ location.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>lodgers</th>
+                                        <td> {% if location.lodgers|length > 0 %}
+                                                <ul class="list-unstyled">
+                                                    {% for location in location.lodgers %}
+                                                        <li>{{ location.name }} ({{ location.firstname }})</li>
 
-    <a href="{{ path('app_location_index') }}">back to list</a>
+                                                    {% endfor %}
 
-    <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                                                </ul>
+                                            {% else %}
+                                                <ul>
+                                                    No lodgers
+                                                </ul>
+                                            {% endif %}</td>
+                                        <td>
+                                    </tr>
+                                    <tr>
+                                        <th>Type</th>
+                                        <td>{{ location.Type }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Depot</th>
+                                        <td>{{ location.Depot }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>StartDate</th>
+                                        <td>{{ location.startDate ? location.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>EndDate</th>
+                                        <td>{{ location.endDate ? location.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Etat</th>
+                                        <td>{{ location.etat ? 'Yes' : 'No' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>loyer</th>
+                                        <td>{{ location.loyer }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h2>Avis d'échéance</h2>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date de début</th>
+                                            <th>Date de fin</th>
+                                            <th>Statut de paiement</th>
+                                            <th>Montant</th>
+                                            <th>actions</th>
 
-    {{ include('location/_delete_form.html.twig') }}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for avis in avis_echeances %}
+                                            <tr>
+                                                <td>{{ avis.id }}</td>
+                                                <td>{{ avis.dateDebut|date('d-m-Y') }}</td>
+                                                <td>{{ avis.dateFin|date('d-m-Y') }}</td>
+                                                <td>{{ avis.paymentStatus.value }}</td>
+                                                <td>{{ avis.amount }}</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle dropdown-actions"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                            <img src="{{ asset('build/images/three_dots_icon.svg') }}">
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-actions">
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item" href="#">Something else here</a>
+                                                            </li>
+                                                            <li>
+                                                                <!-- avis_echeance/_delete_form.html.twig -->
+                                                                {{ include('avis_echeance/_delete_form.html.twig', { avis_echeance: avis }) }}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="5">Aucun avis d'échéance pour cette location.</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Bouton pour générer un nouvel avis d'échéance -->
+                                <form method="post" action="{{ path('app_location_generate_avis_echeance', {id: location.id}) }}">
+                                    <button type="submit" class="btn button-color">Générer un nouvel avis d'échéance</button>
+                                </form>
+                                <a href="{{ path('app_location_index') }}">back to list</a>
+
+                                <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+
+                                {{ include('location/_delete_form.html.twig') }}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
 {% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AvisEcheance index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid h-100">
+        <div class="row flex-nowrap">
+            <!-- Navbar latérale -->
+            {% include '@shared/sidebare.html.twig' %}
+            <main role="main" class="col-md-10 ml-sm-auto px-4">
+                <h2 class='text-center title-h2'>Avis d'écheance index</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="table-responsive">
+                                <form method="post" action="{{ path('app_avis_echeance_delete_selected') }}">
+                                    <table class="table table-head">
+                                        <thead>
+                                        <tr>
+                                            <th>Sélectionner</th>
+                                            <th>Lots</th>
+                                            <th>name</th>
+                                            <th>PaymentStatus</th>
+                                            <th>Amount</th>
+                                            <th>Description</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for avis_echeance in avis_echeances %}
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="avis_echeances[]"
+                                                           value="{{ avis_echeance.id }}"
+                                                           class="delete-checkbox"
+                                                           id="delete-button">
+                                                </td>
+                                                <td>
+                                                    {% for property in avis_echeance.location.properties %}
+                                                        {{ property.name }}
+                                                        <br>{{ property.numero }} {{ property.address }}
+                                                        <br>{{ property.postCode }} {{ property.country }}
+                                                    {% else %}
+                                                        Aucun properties
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for lodger in avis_echeance.location.lodgers %}
+                                                        {{ lodger.name }} ({{ lodger.firstname }})
+                                                    {% else %}
+                                                        Aucun lodger
+                                                    {% endfor %}
+                                                </td>
+                                                <td>{{ avis_echeance.paymentStatus.value }}</td>
+                                                <td>{{ avis_echeance.amount }}</td>
+                                                <td>
+                                                    Loyer du : <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }} - {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle dropdown-actions"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                            <img src="{{ asset('build/images/three_dots_icon.svg') }}">
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-actions">
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_avis_echeance_edit', {'id': avis_echeance.id}) }}">edit</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_avis_echeance_show', {'id': avis_echeance.id}) }}">Avis
+                                                                    d'échéance</a>
+                                                            </li>
+                                                            <li>
+                                                                <button class="btn delete-btn button-delete"
+                                                                        data-id="{{ avis_echeance.id }}"
+                                                                        data-token="{{ csrf_token('delete' ~ avis_echeance.id) }}">
+                                                                    Delete
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="8">No records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <button type="submit" class="btn button-color delete-selected-btn">Supprimer les
+                                        sélectionnés
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ path('app_avis_echeance_new') }}" class=" btn button-color">Create new</a>
+                </div>
+            </main>
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('build/app.js') }}"></script>
+    {% endblock %}
+{% endblock %}

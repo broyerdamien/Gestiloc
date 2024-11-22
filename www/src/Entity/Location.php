@@ -40,6 +40,9 @@ class Location
     #[ORM\Column(nullable: true)]
     private ?float $loyer = null;
 
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: AvisEcheance::class)]
+    private Collection $avisEcheances;
+
     public function getLodger(): ?Lodger
     {
         return $this->lodger;
@@ -60,6 +63,7 @@ class Location
     {
         $this->properties = new ArrayCollection();
         $this->lodgers = new ArrayCollection();
+        $this->avisEcheances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +187,36 @@ class Location
     public function setLoyer(?float $loyer): static
     {
         $this->loyer = $loyer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AvisEcheance>
+     */
+    public function getAvisEcheances(): Collection
+    {
+        return $this->avisEcheances;
+    }
+
+    public function addAvisEcheance(AvisEcheance $avisEcheance): static
+    {
+        if (!$this->avisEcheances->contains($avisEcheance)) {
+            $this->avisEcheances->add($avisEcheance);
+            $avisEcheance->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvisEcheance(AvisEcheance $avisEcheance): static
+    {
+        if ($this->avisEcheances->removeElement($avisEcheance)) {
+            // set the owning side to null (unless already changed)
+            if ($avisEcheance->getLocation() === $this) {
+                $avisEcheance->setLocation(null);
+            }
+        }
 
         return $this;
     }
