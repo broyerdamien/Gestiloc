@@ -54,7 +54,9 @@
                                                 <td>{{ avis_echeance.paymentStatus.value }}</td>
                                                 <td>{{ avis_echeance.amount }}</td>
                                                 <td>
-                                                    Loyer du : <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }} - {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
+                                                    Loyer du :
+                                                    <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }}
+                                                    - {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">
