@@ -1,21 +1,28 @@
 @use "sass:map";
 
 $primary-color: #e0e5e9;
-$hover-secondary-color: #64c6be;
+$hover-secondary-color: #8afff5;
 $txt-header-color: #282A2C;
 $titre-color-black: #393939;
 $bg-sidebar: #f9f9f9;
 $primary-white: #FFFFFF;
 $primary-black: #000000;
+$primary-alert: #fcdada;
+$bg-status: #8afff533;
+
 //color logo
 $gris-fonce: #4C5255;
 $gris-footer: #46464f;
 $blue-primary: #74DBCF;
 $gris-claire: #8D8D8F;
 $gris-tres-clair: #9C9CA4;
+// color table
+
+$table-partiel: #FFF4CC;
+$table-attente: #FFD6D9;
 
 body {
-  background-color: $primary-white;
+  background-color: $primary-white
 }
 
 // container
@@ -85,17 +92,33 @@ $space: (
 
 .table-head {
   thead {
-    th {
-      color: $txt-header-color;
-      font-size: 1.4rem;
-      font-weight: 700;
-      line-height: 110%;
-      text-transform: uppercase;
+    tr {
+      background-color: $bg-sidebar;
+      --bs-table-bg: $bg-sidebar;
+
+      th {
+        color: $txt-header-color;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 110%;
+        text-transform: uppercase;
+      }
     }
   }
 
   tbody {
+    tr:nth-child(odd) {
+      background-color: $primary-white;
+      --bs-table-bg: $primary-white;
+    }
+
+    tr:nth-child(even) {
+      background-color: $bg-sidebar;
+      --bs-table-bg: $bg-sidebar;
+    }
+
     tr {
+
       td {
         color: $txt-header-color;
         font-size: 1.4rem;
@@ -109,19 +132,24 @@ $space: (
         }
       }
     }
+    tr:hover {
+      background-color: darken($bg-sidebar, 5%);
+    }
   }
 }
-.table-show{
-  tbody{
-    tr{
-      th{
+
+.table-show {
+  tbody {
+    tr {
+      th {
         color: $txt-header-color;
         font-size: 1.4rem;
         font-weight: 700;
         line-height: 110%;
         text-transform: uppercase;
       }
-      td{
+
+      td {
         color: $txt-header-color;
         font-size: 1.4rem;
         font-weight: 700;
@@ -131,6 +159,7 @@ $space: (
     }
   }
 }
+
 .table-txt {
   color: $txt-header-color;
   font-size: 1.4rem;
@@ -172,9 +201,11 @@ $space: (
     color: $blue-primary;
   }
 }
+
 .delete-selected-btn {
   display: none;
 }
+
 // Margin
 .margin-title-bottom {
   margin-bottom: map.get($space, space250);

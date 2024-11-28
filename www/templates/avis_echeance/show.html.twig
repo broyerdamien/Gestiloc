@@ -3,36 +3,74 @@
 {% block title %}AvisEcheance{% endblock %}
 
 {% block body %}
-    <h1>AvisEcheance</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ avis_echeance.id }}</td>
-            </tr>
-            <tr>
-                <th>DateDebut</th>
-                <td>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateFin</th>
-                <td>{{ avis_echeance.dateFin ? avis_echeance.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PaymentStatus</th>
-                <td>{{ avis_echeance.paymentStatus.value }}</td>
-            </tr>
-            <tr>
-                <th>Amount</th>
-                <td>{{ avis_echeance.amount }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid h-100">
+        <div class="row flex-nowrap">
+            <!-- Navbar latérale -->
+            {% include '@shared/sidebare.html.twig' %}
+            <main role="main" class="col-md-10 ml-sm-auto px-4">
+                <h2 class='text-center title-h2'>Avis d'échéance</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="table-responsive">
 
-    <a href="{{ path('app_avis_echeance_index') }}">back to list</a>
+                                <table class="table table-show">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ avis_echeance.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>DateDebut</th>
+                                        <td>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>DateFin</th>
+                                        <td>{{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>PaymentStatus</th>
+                                        <td>{{ avis_echeance.paymentStatus.value }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <td>{{ avis_echeance.amount }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <h2>Historique des Paiements</h2>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date de paiement</th>
+                                        <th>Montant</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for payment in avis_echeance.payments %}
+                                        <tr>
+                                            <td>{{ payment.paymentDate ? payment.paymentDate|date('d-m-Y') : 'Non définie' }}</td>
+                                            <td>{{ payment.amount }} €</td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="2">Aucun paiement enregistré</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <a href="{{ path('app_avis_echeance_index') }}">back to list</a>
 
-    <a href="{{ path('app_avis_echeance_edit', {'id': avis_echeance.id}) }}">edit</a>
+                                <a href="{{ path('app_avis_echeance_edit', {'id': avis_echeance.id}) }}">edit</a>
 
-    {{ include('avis_echeance/_delete_form.html.twig') }}
+                                {{ include('avis_echeance/_delete_form.html.twig') }}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
 {% endblock %}

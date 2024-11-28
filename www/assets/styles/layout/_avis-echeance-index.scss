@@ -1,0 +1,31 @@
+/* Increase specificity and use !important */
+table.table-dropdown {
+  tr {
+    border-bottom: 1px solid #E6E6E6;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  tr.status-en-attente {
+    --bs-table-bg: $table-attente;
+    background-color: $table-attente;
+  }
+
+  tr.status-partiel {
+    background-color: $table-partiel;
+    --bs-table-bg: $table-partiel;
+  }
+
+  /* Hover states */
+  tr.status-payé:hover {
+    background-color: #C3EFD4 !important; /* Vert très pâle */
+  }
+
+  tr.status-partiel:hover {
+    background-color: #FFEDB5 !important; /* Orange très pâle */
+  }
+
+  tr.status-en-attente:hover {
+    background-color: #FCEBED !important; /* Rose très pâle */
+  }
+
+}
