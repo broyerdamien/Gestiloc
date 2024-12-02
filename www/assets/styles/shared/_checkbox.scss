@@ -14,8 +14,8 @@
 
 /* Lorsque la checkbox est cochée */
 .delete-checkbox:checked {
-  background-color: $hover-secondary-color;
-  border-color: $hover-secondary-color;
+  $primary-white: $hover-secondary-color;
+  $primary-black: $hover-secondary-color;
 }
 
 /* Ajouter une coche */

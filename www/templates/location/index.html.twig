@@ -61,8 +61,8 @@
                                                 </ul>
                                             </td>
                                             <td>{{ location.Depot }}</td>
-                                            <td>{{ location.startDate ? location.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                                            <td>{{ location.endDate ? location.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                            <td>{{ location.startDate ? location.startDate|date('d-m-Y') : '' }}</td>
+                                            <td>{{ location.endDate ? location.endDate|date('d-m-Y') : '' }}</td>
                                             <td>{{ location.etat ? 'Yes' : 'No' }}</td>
                                             <td>
                                                 <div class="dropdown">

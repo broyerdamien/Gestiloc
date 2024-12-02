@@ -6,6 +6,7 @@ use App\Entity\AvisEcheance;
 use App\Entity\Location;
 use App\Enum\PaymentStatus;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,10 +21,12 @@ class AvisEcheanceType extends AbstractType
             ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text', // Affiche un sélecteur de date
                 'label' => 'Date de début',
+                'input' => 'datetime_immutable',
             ])
             ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de fin',
+                'input' => 'datetime_immutable',
             ])
             ->add('paymentStatus', ChoiceType::class, [
                 'choices' => [
@@ -36,6 +39,14 @@ class AvisEcheanceType extends AbstractType
             ->add('amount', null, [
                 'label' => 'Montant',
             ])
+            ->add('partialPaymentAmount', NumberType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Montant du paiement partiel',
+                'attr' => [
+                    'placeholder' => 'Saisir le montant si paiement partiel',
+                ],
+            ])
             ->add('location', EntityType::class, [
                 'class' => Location::class,
                 'choice_label' => function (Location $location) {
@@ -43,7 +54,7 @@ class AvisEcheanceType extends AbstractType
                     return $location->getLodgers()->count() > 0
                         ? $location->getLodgers()->first()->getName()
                         : 'Aucun locataire';
-                },                'label' => 'Location',
+                }, 'label' => 'Location',
                 'placeholder' => 'Choisir une location',
             ]);
     }

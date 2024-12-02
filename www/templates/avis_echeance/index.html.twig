@@ -14,7 +14,7 @@
                         <div class="col-12 col-md-12">
                             <div class="table-responsive">
                                 <form method="post" action="{{ path('app_avis_echeance_delete_selected') }}">
-                                    <table class="table table-head">
+                                    <table class="table table-head table-dropdown">
                                         <thead>
                                         <tr>
                                             <th>Sélectionner</th>
@@ -28,7 +28,7 @@
                                         </thead>
                                         <tbody>
                                         {% for avis_echeance in avis_echeances %}
-                                            <tr>
+                                            <tr class="status-{{ avis_echeance.paymentStatus.value|lower|replace({' ': '-'}) }}">
                                                 <td>
                                                     <input type="checkbox" name="avis_echeances[]"
                                                            value="{{ avis_echeance.id }}"
@@ -51,12 +51,31 @@
                                                         Aucun lodger
                                                     {% endfor %}
                                                 </td>
-                                                <td>{{ avis_echeance.paymentStatus.value }}</td>
-                                                <td>{{ avis_echeance.amount }}</td>
+                                                <td>
+                                                    <select name="payment_status" class="form-select"
+                                                            data-id="{{ avis_echeance.id }}">
+                                                        {% for status in payment_statuses %}
+                                                            <option value="{{ status.value }}"
+                                                                    {% if avis_echeance.paymentStatus.value == status.value %}selected{% endif %}>
+                                                                {{ status.value }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </td>
+                                                <td> {{ avis_echeance.amount }}</td>
                                                 <td>
                                                     Loyer du :
                                                     <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }}
-                                                    - {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
+                                                    au {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
+                                                    <br>
+                                                    {% for payment in avis_echeance.payments %}
+                                                        <ul>
+                                                            <li> Reçu {{ payment.amount }} €
+                                                                le {{ payment.paymentDate ? payment.paymentDate|date('d-m-Y') : 'Non définie' }}
+                                                            </li>
+                                                        </ul>
+
+                                                    {% endfor %}
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">

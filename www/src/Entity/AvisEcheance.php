@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AvisEcheanceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\PaymentStatus;
 #[ORM\Entity(repositoryClass: AvisEcheanceRepository::class)]
@@ -28,6 +30,14 @@ class AvisEcheance
     #[ORM\ManyToOne(inversedBy: 'avisEcheances')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Location $location = null;
+
+    #[ORM\OneToMany(mappedBy: 'avisEcheance', targetEntity: Payment::class)]
+    private Collection $payments;
+
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class AvisEcheance
     public function setLocation(?Location $location): static
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments->add($payment);
+            $payment->setAvisEcheance($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payments->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getAvisEcheance() === $this) {
+                $payment->setAvisEcheance(null);
+            }
+        }
 
         return $this;
     }
