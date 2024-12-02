@@ -17,15 +17,14 @@ table.table-dropdown {
 
   /* Hover states */
   tr.status-payé:hover {
-    background-color: #C3EFD4 !important; /* Vert très pâle */
+    background-color: $table-paye-hover  !important;
   }
 
   tr.status-partiel:hover {
-    background-color: #FFEDB5 !important; /* Orange très pâle */
+    background-color: $table-partiel-hover !important;
   }
 
   tr.status-en-attente:hover {
-    background-color: #FCEBED !important; /* Rose très pâle */
+    background-color: $table-attente-hover !important;
   }
-
 }
