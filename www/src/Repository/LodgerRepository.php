@@ -21,6 +21,13 @@ class LodgerRepository extends ServiceEntityRepository
         parent::__construct($registry, Lodger::class);
     }
 
+    public function findAllByAsc()
+    {
+        return $this->createQueryBuilder('l')
+            ->orderBy('l.name', 'ASC')
+            ->getQuery()
+            ->getResult() ;
+    }
 //    /**
 //     * @return Lodger[] Returns an array of Lodger objects
 //     */

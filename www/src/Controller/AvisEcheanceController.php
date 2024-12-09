@@ -26,7 +26,7 @@ class AvisEcheanceController extends AbstractController
         $paymentStatuses = PaymentStatus::cases();
 
         return $this->render('avis_echeance/index.html.twig', [
-            'avis_echeances' => $avisEcheanceRepository->findAll(),
+            'avis_echeances' => $avisEcheanceRepository->findAllSortedByDateAndLodgerName(),
             'payment_statuses' => $paymentStatuses,
         ]);
     }
@@ -69,30 +69,25 @@ class AvisEcheanceController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_avis_echeance_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, AvisEcheance $avisEcheance, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, AvisEcheance $avisEcheance, AvisEcheanceService $avisEcheanceService): Response
     {
         $form = $this->createForm(AvisEcheanceType::class, $avisEcheance);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($avisEcheance->getPaymentStatus() === PaymentStatus::PARTIEL) {
-                $partialPayment = $form->get('partialPaymentAmount')->getData();
-                if ($partialPayment > 0) {
-                    $payment = new Payment();
-                    $payment->setAmount($partialPayment);
-                    $payment->setPaymentDate(new \DateTimeImmutable());
-                    $payment->setAvisEcheance($avisEcheance);
-                    // Ajouter le paiement à l'avis d'échéance
-                    $avisEcheance->addPayment($payment);
-                    $entityManager->persist($payment);
+            $partialPaymentAmount = $form->get('partialPaymentAmount')->getData();
 
+            if ($partialPaymentAmount > 0) {
+                try {
+                    $avisEcheanceService->addPaymentAvisEcheance($avisEcheance, $partialPaymentAmount);
+                    $this->addFlash('success', 'Le paiement a été ajouté avec succès.');
+                } catch (\InvalidArgumentException $e) {
+                    $this->addFlash('error', $e->getMessage());
+                    return $this->redirectToRoute('app_avis_echeance_edit', ['id' => $avisEcheance->getId()]);
                 }
             }
-            $entityManager->flush();
-
             return $this->redirectToRoute('app_avis_echeance_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('avis_echeance/edit.html.twig', [
             'avis_echeance' => $avisEcheance,
             'form' => $form,

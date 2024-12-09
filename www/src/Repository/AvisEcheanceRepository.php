@@ -21,6 +21,17 @@ class AvisEcheanceRepository extends ServiceEntityRepository
         parent::__construct($registry, AvisEcheance::class);
     }
 
+
+    public function findAllSortedByDateAndLodgerName(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.location', 'l') // Jointure avec l'entité Location
+            ->leftJoin('l.lodgers', 'lodger') // Jointure avec l'entité Lodger (utilisation de leftJoin pour éviter de filtrer les locations sans lodger)
+            ->orderBy('a.dateDebut', 'DESC') // Tri par dateDebut décroissante
+            ->addOrderBy('lodger.name', 'ASC') // Tri par nom du lodger en ordre alphabétique croissant
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return AvisEcheance[] Returns an array of AvisEcheance objects
 //     */

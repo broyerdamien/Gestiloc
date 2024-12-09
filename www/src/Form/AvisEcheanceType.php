@@ -39,6 +39,13 @@ class AvisEcheanceType extends AbstractType
             ->add('amount', null, [
                 'label' => 'Montant',
             ])
+            ->add('remainingAmount', NumberType::class, [
+                'label' => 'Montant restant',
+                'required' => false,
+                'attr' => [
+                    'readonly' => true, // Rendre le champ non modifiable
+                ],
+            ])
             ->add('partialPaymentAmount', NumberType::class, [
                 'mapped' => false,
                 'required' => false,
