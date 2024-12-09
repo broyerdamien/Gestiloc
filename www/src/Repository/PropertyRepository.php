@@ -21,6 +21,16 @@ class PropertyRepository extends ServiceEntityRepository
         parent::__construct($registry, Property::class);
     }
 
+    public function findAllByNameProperty()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.lodgers', 'lodger')
+            ->orderBy('p.name', 'ASC')
+            ->addOrderBy('lodger.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Property[] Returns an array of Property objects
 //     */

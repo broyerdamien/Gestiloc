@@ -34,9 +34,17 @@ class AvisEcheance
     #[ORM\OneToMany(mappedBy: 'avisEcheance', targetEntity: Payment::class)]
     private Collection $payments;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $remainingAmount = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $excessAmount = 0;
+
     public function __construct()
     {
         $this->payments = new ArrayCollection();
+        $this->remainingAmount =$this->amount;
+
     }
 
     public function getId(): ?int
@@ -87,7 +95,7 @@ class AvisEcheance
     public function setAmount(float $amount): static
     {
         $this->amount = $amount;
-
+        $this->remainingAmount = $amount;
         return $this;
     }
 
@@ -132,4 +140,38 @@ class AvisEcheance
 
         return $this;
     }
+    public function __toString(): string
+    {
+        // Retourne une chaîne de caractères représentant l'avis d'échéance
+        return sprintf('Avis ID %d - Date début : %s - Montant : %.2f€',
+            $this->id,
+            $this->dateDebut->format('Y-m-d'),
+            $this->amount
+        );
+    }
+
+    public function getRemainingAmount(): ?float
+    {
+        return $this->remainingAmount;
+    }
+
+    public function setRemainingAmount(?float $remainingAmount): static
+    {
+        $this->remainingAmount = $remainingAmount;
+
+        return $this;
+    }
+
+    public function getExcessAmount(): ?float
+    {
+        return $this->excessAmount;
+    }
+
+    public function setExcessAmount(?float $excessAmount): static
+    {
+        $this->excessAmount = $excessAmount;
+
+        return $this;
+    }
+
 }

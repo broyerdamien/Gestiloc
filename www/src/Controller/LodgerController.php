@@ -18,7 +18,7 @@ class LodgerController extends AbstractController
     public function index(LodgerRepository $lodgerRepository): Response
     {
         return $this->render('lodger/index.html.twig', [
-            'lodgers' => $lodgerRepository->findAll(),
+            'lodgers' => $lodgerRepository->findAllByAsc(),
         ]);
     }
 

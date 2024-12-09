@@ -22,6 +22,8 @@
                                             <th>name</th>
                                             <th>PaymentStatus</th>
                                             <th>Amount</th>
+                                            <th>Remaining Amount</th>
+                                            <th>Excess Amount</th>
                                             <th>Description</th>
                                             <th>Actions</th>
                                         </tr>
@@ -63,6 +65,8 @@
                                                     </select>
                                                 </td>
                                                 <td> {{ avis_echeance.amount }}</td>
+                                                <td> {{ avis_echeance.remainingAmount }}</td>
+                                                <td>{{ avis_echeance.excessAmount ?? 0 }}</td>
                                                 <td>
                                                     Loyer du :
                                                     <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }}
