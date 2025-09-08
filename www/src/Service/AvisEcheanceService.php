@@ -11,6 +11,7 @@ use App\Entity\Location;
 use App\Entity\AvisEcheance;
 use App\Enum\PaymentStatus;
 use http\Exception\InvalidArgumentException;
+use Symfony\Component\Form\FormInterface;
 
 class AvisEcheanceService
 {
@@ -102,5 +103,12 @@ class AvisEcheanceService
         }
         $this->entityManager->persist($avisEcheance);
         $this->entityManager->flush();
+    }
+    public function handlePartialPayment(AvisEcheance $avisEcheance, FormInterface $form): void
+    {
+        $partialPaymentAmount = $form->get('partialPaymentAmount')->getData();
+        if ($partialPaymentAmount > 0) {
+            $this->addPaymentAvisEcheance($avisEcheance, $partialPaymentAmount);
+        }
     }
 }

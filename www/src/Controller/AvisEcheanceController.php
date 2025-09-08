@@ -75,19 +75,10 @@ class AvisEcheanceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $partialPaymentAmount = $form->get('partialPaymentAmount')->getData();
-
-            if ($partialPaymentAmount > 0) {
-                try {
-                    $avisEcheanceService->addPaymentAvisEcheance($avisEcheance, $partialPaymentAmount);
-                    $this->addFlash('success', 'Le paiement a été ajouté avec succès.');
-                } catch (\InvalidArgumentException $e) {
-                    $this->addFlash('error', $e->getMessage());
-                    return $this->redirectToRoute('app_avis_echeance_edit', ['id' => $avisEcheance->getId()]);
-                }
-            }
-            return $this->redirectToRoute('app_avis_echeance_index', [], Response::HTTP_SEE_OTHER);
+            $avisEcheanceService->handlePartialPayment($avisEcheance, $form);
+            return $this->redirectToRoute('app_avis_echeance_index');
         }
+
         return $this->render('avis_echeance/edit.html.twig', [
             'avis_echeance' => $avisEcheance,
             'form' => $form,

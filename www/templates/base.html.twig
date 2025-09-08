@@ -28,19 +28,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link active home-color" aria-current="page" href={{ path('home') }}>Home</a>
+                    <a class="nav-link active home-color" aria-current="page" href={{ path('home') }}> {{ 'menu.home'|trans }}</a>
                 </li>
                 <li class="nav-item dropdown txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_lodger_index') }}"> Lodger</a>
+                    <a class="nav-link" href="{{ path('app_lodger_index') }}">  {{ 'menu.lodger'|trans }}</a>
+                </li>
+
+                <li class="nav-item txt-menu-header">
+                    <a class="nav-link" href="{{ path('app_property_index') }}">  {{ 'menu.property'|trans }}</a>
                 </li>
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_property_index') }}"> Property</a>
+                    <a class="nav-link" href="{{ path('app_location_index') }}">  {{ 'menu.location'|trans }}</a>
                 </li>
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_location_index') }}"> Location</a>
-                </li>
-                <li class="nav-item txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_avis_echeance_index') }}"> Avis d'écheance</a>
+                    <a class="nav-link" href="{{ path('app_avis_echeance_index') }}">  {{ 'menu.avis_echeance'|trans }}</a>
                 </li>
 {#                <li class="nav-item dropdown txt-menu-header">#}
 {#                    <a class="nav-link dropdown-toggle" href="{{ path('app_lodger_index') }}" role="button"#}
@@ -59,7 +60,7 @@
 {#                    </ul>#}
 {#                </li>#}
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link disabled" aria-disabled="true">{{ 'disabled'|trans }}</a>
                 </li>
             </ul>
             {#            <form class="d-flex" role="search"> #}
@@ -77,8 +78,8 @@
     </div>
 {% endfor %}
 {% block body %} {% endblock %}
-</body>
 <footer>
     {% include "shared/footer.html.twig" %}
 </footer>
+</body>
 </html>

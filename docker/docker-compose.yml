@@ -1,68 +1,68 @@
 version: '3'
 
 services:
-    web:
-        build: ./conf/nginx
-        volumes:
-            - ../www/:/var/www/html
-        depends_on:
-            - php
-        networks:
-            - frontend
-            - backend
-        labels:
-           - traefik.docker.network=frontend
-           - traefil.enable=true
-           - traefik.frontend.rule=Host:${SITEURL_BASE}.localhost
-           - traefik.frontend.protocol=http
-           - traefik.port=80
+  web:
+    build: ./conf/nginx
+    volumes:
+      - ../www/:/var/www/html
+    depends_on:
+      - php
+    networks:
+      - frontend
+      - backend
+    labels:
+      - traefik.docker.network=frontend
+      - traefil.enable=true
+      - traefik.frontend.rule=Host:${SITEURL_BASE}.localhost
+      - traefik.frontend.protocol=http
+      - traefik.port=80
 
-    php:
-        build: ./conf/php
-        volumes:
-            - ../www/:/var/www/html
-        depends_on:
-            - mariadb
-        labels:
-            - traefik.enable=false
-        networks:
-            - backend
+  php:
+    build: ./conf/php
+    volumes:
+      - ../www/:/var/www/html
+    depends_on:
+      - mariadb
+    labels:
+      - traefik.enable=false
+    networks:
+      - backend
 
-    mariadb:
-      image: mariadb:10.4
-      command: mysqld --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" --max_allowed_packet=32505856
-      volumes:
-        - db-mysql:/var/lib/mysql
-      environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: symfony
-        MYSQL_USER: user
-        MYSQL_PASSWORD: user
-      labels:
-        - traefik.enable=false
-      networks:
-        - backend
+  mariadb:
+    image: mariadb:10.4
+    command: mysqld --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" --max_allowed_packet=32505856
+    volumes:
+      - db-mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    labels:
+      - traefik.enable=false
+    networks:
+      - backend
 
 
-    myadmin:
-      volumes:
-        - ./conf/php/upload.ini:/usr/local/etc/php/php.ini
-      image: phpmyadmin/phpmyadmin
-      depends_on:
-        - mariadb
-      environment:
-        MYSQL_USERNAME: root
-        MYSQL_ROOT_PASSWORD: root
-        PMA_HOST: mariadb
-      networks:
-        - frontend
-        - backend
-      labels:
-        - traefik.docker.network=frontend
-        - traefik.enable=true
-        - traefik.frontend.rule=Host:my.${SITEURL_BASE}.localhost
-        - traefik.frontend.protocol=http
-        - traefik.port=80
+  myadmin:
+    volumes:
+      - ./conf/php/upload.ini:/usr/local/etc/php/php.ini
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mariadb
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: mariadb
+    networks:
+      - frontend
+      - backend
+    labels:
+      - traefik.docker.network=frontend
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:my.${SITEURL_BASE}.localhost
+      - traefik.frontend.protocol=http
+      - traefik.port=80
 
 volumes:
   db-mysql:

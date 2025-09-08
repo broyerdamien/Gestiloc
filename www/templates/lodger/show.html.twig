@@ -1,58 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lodger{% endblock %}
+{% block title %}{{ 'lodger.show.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Lodger</h1>
+    <h1>{{ 'lodger.show.title'|trans }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ lodger.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ lodger.name }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ lodger.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ lodger.address }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ lodger.phone }}</td>
-            </tr>
-            <tr>
-                <th>Mail</th>
-                <td>{{ lodger.mail }}</td>
-            </tr>
-            <tr>
-                <th>DateOfBirth</th>
-                <td>{{ lodger.dateOfBirth ? lodger.dateOfBirth|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Job</th>
-                <td>{{ lodger.job }}</td>
-            </tr>
-            <tr>
-                <th>Salary</th>
-                <td>{{ lodger.salary }}</td>
-            </tr>
-            <tr>
-                <th>Sex</th>
-                <td>{{ lodger.sex }}</td>
-            </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.id'|trans }}</th>
+            <td>{{ lodger.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.name'|trans }}</th>
+            <td>{{ lodger.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.firstname'|trans }}</th>
+            <td>{{ lodger.firstname }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.address'|trans }}</th>
+            <td>{{ lodger.address }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.phone'|trans }}</th>
+            <td>{{ lodger.phone }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.mail'|trans }}</th>
+            <td>{{ lodger.mail }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.date_of_birth'|trans }}</th>
+            <td>{{ lodger.dateOfBirth ? lodger.dateOfBirth|date('d-m-Y') : '' }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.job'|trans }}</th>
+            <td>{{ lodger.job }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.salary'|trans }}</th>
+            <td>{{ lodger.salary }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'lodger.show.table.sex'|trans }}</th>
+            <td>{{ lodger.sex }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_lodger_index') }}">back to list</a>
-
-    <a href="{{ path('app_lodger_edit', {'id': lodger.id}) }}">edit</a>
+    <a href="{{ path('app_lodger_index') }}">{{ 'lodger.show.actions.back'|trans }}</a>
+    <a href="{{ path('app_lodger_edit', {'id': lodger.id}) }}">{{ 'lodger.show.actions.edit'|trans }}</a>
 
     {{ include('lodger/_delete_form.html.twig') }}
 {% endblock %}

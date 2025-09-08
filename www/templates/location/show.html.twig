@@ -1,79 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Location{% endblock %}
+{% block title %}{{ 'location.show.title'|trans }}{% endblock %}
 
 {% block body %}
-
     <div class="container-fluid h-100">
-    <div class="row flex-nowrap">
-        <!-- Navbar latérale -->
-        {% include '@shared/sidebare.html.twig' %}
-        <main role="main" class="col-md-10 ml-sm-auto px-4">
-            <h2 class='text-center title-h2'>Location index</h2>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-head">
+        <div class="row flex-nowrap">
+            <!-- Navbar latérale -->
+            {% include '@shared/sidebare.html.twig' %}
+            <main role="main" class="col-md-10 ml-sm-auto px-4">
+                <h2 class='text-center title-h2'>{{ 'location.show.title'|trans }}</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="table-responsive">
                                 <table class="table table-show">
                                     <tbody>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>{{ 'location.show.table.id'|trans }}</th>
                                         <td>{{ location.id }}</td>
                                     </tr>
                                     <tr>
-                                        <th>lodgers</th>
-                                        <td> {% if location.lodgers|length > 0 %}
+                                        <th>{{ 'location.show.table.lodgers'|trans }}</th>
+                                        <td>
+                                            {% if location.lodgers|length > 0 %}
                                                 <ul class="list-unstyled">
-                                                    {% for location in location.lodgers %}
-                                                        <li>{{ location.name }} ({{ location.firstname }})</li>
+                                                    {% for lodger in location.lodgers %}
+                                                        <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
                                                     {% endfor %}
                                                 </ul>
                                             {% else %}
                                                 <ul>
-                                                    No lodgers
+                                                    {{ 'location.show.table.no_lodgers'|trans }}
                                                 </ul>
-                                            {% endif %}</td>
-                                        <td>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <th>Type</th>
+                                        <th>{{ 'location.show.table.type'|trans }}</th>
                                         <td>{{ location.Type }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Depot</th>
+                                        <th>{{ 'location.show.table.deposit'|trans }}</th>
                                         <td>{{ location.Depot }}</td>
                                     </tr>
                                     <tr>
-                                        <th>StartDate</th>
-                                        <td>{{ location.startDate ? location.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                                        <th>{{ 'location.show.table.start_date'|trans }}</th>
+                                        <td>{{ location.startDate ? location.startDate|date('d-m-Y') : '' }}</td>
                                     </tr>
                                     <tr>
-                                        <th>EndDate</th>
-                                        <td>{{ location.endDate ? location.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                        <th>{{ 'location.show.table.end_date'|trans }}</th>
+                                        <td>{{ location.endDate ? location.endDate|date('d-m-Y') : '' }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Etat</th>
-                                        <td>{{ location.etat ? 'Yes' : 'No' }}</td>
+                                        <th>{{ 'location.show.table.state'|trans }}</th>
+                                        <td>{{ location.etat ? 'location.show.table.yes'|trans : 'location.show.table.no'|trans }}</td>
                                     </tr>
                                     <tr>
-                                        <th>loyer</th>
+                                        <th>{{ 'location.show.table.rent'|trans }}</th>
                                         <td>{{ location.loyer }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
+
+                                <!-- Avis d'échéance -->
                                 <div>
-                                    <h2>Avis d'échéance</h2>
+                                    <h2>{{ 'location.show.avis.title'|trans }}</h2>
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Date de début</th>
-                                            <th>Date de fin</th>
-                                            <th>Statut de paiement</th>
-                                            <th>Montant</th>
-                                            <th>actions</th>
-
+                                            <th>{{ 'location.show.avis.id'|trans }}</th>
+                                            <th>{{ 'location.show.avis.start_date'|trans }}</th>
+                                            <th>{{ 'location.show.avis.end_date'|trans }}</th>
+                                            <th>{{ 'location.show.avis.payment_status'|trans }}</th>
+                                            <th>{{ 'location.show.avis.amount'|trans }}</th>
+                                            <th>{{ 'location.show.avis.actions'|trans }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -93,16 +93,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-actions">
                                                             <li><a class="dropdown-item"
-                                                                   href="{{ path('app_avis_echeance_edit', {'id': avis.id}) }}">edit</a>
-                                                            </li>
+                                                                   href="{{ path('app_avis_echeance_edit', {'id': avis.id}) }}">{{ 'location.show.actions.edit'|trans }}</a></li>
                                                             <li><a class="dropdown-item"
-                                                                   href="{{ path('app_avis_echeance_show', {'id': avis.id}) }}">show</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="#">Something else
-                                                                    here</a>
-                                                            </li>
+                                                                   href="{{ path('app_avis_echeance_show', {'id': avis.id}) }}">{{ 'location.show.actions.show'|trans }}</a></li>
+                                                            <li><a class="dropdown-item" href="#">{{ 'location.show.actions.something_else'|trans }}</a></li>
                                                             <li>
-                                                                <!-- avis_echeance/_delete_form.html.twig -->
                                                                 {{ include('avis_echeance/_delete_form.html.twig', { avis_echeance: avis }) }}
                                                             </li>
                                                         </ul>
@@ -111,29 +106,28 @@
                                             </tr>
                                         {% else %}
                                             <tr>
-                                                <td colspan="5">Aucun avis d'échéance pour cette location.</td>
+                                                <td colspan="6">{{ 'location.show.avis.no_avis'|trans }}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- Bouton pour générer un nouvel avis d'échéance -->
-                                <form method="post"
-                                      action="{{ path('app_location_generate_avis_echeance', {id: location.id}) }}">
-                                    <button type="submit" class="btn button-color">Générer un nouvel avis d'échéance
+
+                                <!-- Bouton pour générer un nouvel avis -->
+                                <form method="post" action="{{ path('app_location_generate_avis_echeance', {id: location.id}) }}">
+                                    <button type="submit" class="btn button-color">
+                                        {{ 'location.show.avis.generate'|trans }}
                                     </button>
                                 </form>
-                                <a href="{{ path('app_location_index') }}">back to list</a>
 
-                                <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
-
+                                <a href="{{ path('app_location_index') }}">{{ 'location.show.actions.back'|trans }}</a>
+                                <a href="{{ path('app_location_edit', {'id': location.id}) }}">{{ 'location.show.actions.edit'|trans }}</a>
                                 {{ include('location/_delete_form.html.twig') }}
-                            </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
-
 {% endblock %}

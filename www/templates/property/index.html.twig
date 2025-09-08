@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Property index{% endblock %}
+{% block title %}{{ 'property.index.title'|trans }}{% endblock %}
 
 {% block body %}
     <div class="container-fluid h-100">
@@ -8,7 +8,7 @@
             <!-- Navbar latérale -->
             {% include '@shared/sidebare.html.twig' %}
             <main role="main" class="col-md-10 ml-sm-auto px-4">
-                <h2 class='text-center title-h2'>Property index</h2>
+                <h2 class='text-center title-h2'>{{ 'property.index.title'|trans }}</h2>
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-md-12">
@@ -16,35 +16,27 @@
                                 <table class="table table-head">
                                     <thead>
                                     <tr>
-                                        <th>Lots</th>
-                                        <th>Type</th>
-                                        <th>Area</th>
-                                        <th>Rooms</th>
-                                        <th>Lodgers</th>
-                                        {#                                        <th>Address</th> #}
-                                        {#                            <th>Building</th> #}
-                                        {#                            <th>Etage</th> #}
-                                        {#                            <th>Numero</th> #}
-                                        {#                                        <th>Country</th> #}
-                                        {#                                        <th>PostCode</th> #}
-
-                                        {#                            <th>Area</th> #}
-                                        {#                            <th>NumberOfParts</th> #}
-                                        {#                            <th>Bedroom</th> #}
-                                        {#                            <th>Bathroom</th> #}
-                                        {#                            <th>RentalCharges</th> #}
-                                        <th>actions</th>
+                                        <th>{{ 'property.index.table.lots'|trans }}</th>
+                                        <th>{{ 'property.index.table.type'|trans }}</th>
+                                        <th>{{ 'property.index.table.area'|trans }}</th>
+                                        <th>{{ 'property.index.table.rooms'|trans }}</th>
+                                        <th>{{ 'property.index.table.lodgers'|trans }}</th>
+                                        <th>{{ 'property.index.table.actions'|trans }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for property in properties %}
                                         <tr>
-                                            <td>{{ property.name }}<br>{{ property.numero }} {{ property.address }}
-                                                <br>{{ property.postCode }} {{ property.country }}</td>
+                                            <td>
+                                                {{ property.name }}<br>
+                                                {{ property.numero }} {{ property.address }}<br>
+                                                {{ property.postCode }} {{ property.country }}
+                                            </td>
                                             <td>{{ property.type }}</td>
                                             <td>{{ property.area }}</td>
                                             <td>{{ property.numberOfParts }}</td>
-                                            <td> {% if property.lodgers|length > 0 %}
+                                            <td>
+                                                {% if property.lodgers|length > 0 %}
                                                     <ul class="list-unstyled">
                                                         {% for lodger in property.lodgers %}
                                                             <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
@@ -52,21 +44,10 @@
                                                     </ul>
                                                 {% else %}
                                                     <ul>
-                                                        No lodgers
+                                                        {{ 'property.index.table.no_lodgers'|trans }}
                                                     </ul>
-                                                {% endif %}</td>
-                                            {#                                            #}{#                                <td>{{ property.building }}</td> #}
-                                            {#                                            #}{#                                <td>{{ property.etage }}</td> #}
-                                            {#                                            #}{#                                <td>{{ property.numero }}</td> #}
-                                            {#                                            <td>{{ property.country }}</td> #}
-                                            {#                                            <td>{{ property.postCode }}</td> #}
-                                            {#                                            <td> #}
-                                            {#                                            </td> #}
-                                            {#                                            #}{#                                <td>{{ property.area }}</td> #}
-                                            {#                                            #}{#                                <td>{{ property.numberOfParts }}</td> #}
-                                            {#                                            #}{#                                <td>{{ property.bedroom }}</td> #}
-                                            {#                                            #}{#                                <td>{{ property.bathroom }}</td> #}
-                                            {#                                <td>{{ property.rentalCharges }}</td> #}
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle dropdown-actions"
@@ -75,22 +56,33 @@
                                                         <img src="{{ asset('build/images/three_dots_icon.svg') }}">
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-actions">
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               href="{{ path('app_property_edit', {'id': property.id}) }}">
+                                                                {{ 'property.index.actions.edit'|trans }}
+                                                            </a>
                                                         </li>
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_property_show', {'id': property.id}) }}">show</a>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               href="{{ path('app_property_show', {'id': property.id}) }}">
+                                                                {{ 'property.index.actions.show'|trans }}
+                                                            </a>
                                                         </li>
-                                                        <li><a class="dropdown-item" href="#">Something else here</a>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                {{ 'property.index.actions.something_else'|trans }}
+                                                            </a>
                                                         </li>
-                                                        <li>{{ include('property/_delete_form.html.twig') }}</li>
+                                                        <li>
+                                                            {{ include('property/_delete_form.html.twig') }}
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
                                         </tr>
                                     {% else %}
                                         <tr>
-                                            <td colspan="16">no records found</td>
+                                            <td colspan="6">{{ 'property.index.table.no_records'|trans }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -100,13 +92,11 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-
-                    <a href="{{ path('app_property_new') }}" class=" btn button-color">Create
-                        new</a>
-
+                    <a href="{{ path('app_property_new') }}" class="btn button-color">
+                        {{ 'property.index.actions.create_new'|trans }}
+                    </a>
                 </div>
             </main>
         </div>
     </div>
-
 {% endblock %}

@@ -8,11 +8,28 @@ RUN apt-get update && apt-get install -y \
     libmcrypt-dev \
     git \
     zip \
+    wget \
+    xfonts-75dpi \
+    xfonts-base \
+    xvfb \
+    libfontconfig \
+    gnupg \
     && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install pdo pdo_mysql
 
+# Installer libssl1.1 manquant (depuis Debian archive)
+# Installer libssl1.1 (nécessaire pour wkhtmltopdf) depuis Debian 11 (bullseye)
+RUN wget http://archive.debian.org/debian/pool/main/o/openssl/libssl1.1_1.1.1w-0+deb11u1_amd64.deb \
+    && apt-get install -y ./libssl1.1_1.1.1w-0+deb11u1_amd64.deb \
+    && rm libssl1.1_1.1.1w-0+deb11u1_amd64.deb
+
+
+# Installer wkhtmltopdf (version stable depuis GitHub)
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && apt-get install -y ./wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && rm wkhtmltox_0.12.6-1.buster_amd64.deb
 
 # Installer et configurer opcache
 ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
@@ -42,20 +59,14 @@ RUN echo "file_uploads = On\n" \
          > /usr/local/etc/php/conf.d/uploads.ini
 RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/date.ini
 
-# Installer les outils supplémentaires
-RUN apt-get install -y git xvfb libfontconfig wkhtmltopdf
-
-
-
 # Installer Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-   # Installer Symfony CLI
-   RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' |  bash \
-       && apt install symfony-cli
+# Installer Symfony CLI
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
+    && apt-get install -y symfony-cli
 
 COPY install-node.sh /install-node.sh
 RUN bash /install-node.sh
-
