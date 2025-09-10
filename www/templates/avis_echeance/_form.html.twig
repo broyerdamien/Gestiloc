@@ -1,13 +1,47 @@
-
-<div class="container">
+<div class="d-flex flex-column">
     <div class="row justify-content-center">
-        <div class="col-6 ">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <div class="d-flex justify-content-center">
-                <button class="btn button-color">{{ button_label|default('Save') }}</button>
+        <div class="col-md-6">
+            <div class="card shadow-sm border-1">
+                <!-- Titre du formulaire -->
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">{{ subtitle|trans|default('admin.labels') }}</h3>
+                </div>
+
+                <div class="card-body">
+                    {{ form_start(form) }}
+
+                    <h5 class="mb-3 text-primary">
+                        <i class="fas fa-calendar-alt"></i> {{ 'avis.form.dates'|trans }}
+                    </h5>
+                    <div class="mb-3">{{ form_row(form.dateDebut) }}</div>
+                    <div class="mb-3">{{ form_row(form.dateFin) }}</div>
+
+                    <h5 class="mb-3 text-primary">
+                        <i class="fas fa-credit-card"></i> {{ 'avis.form.payment'|trans }}
+                    </h5>
+                    <div class="mb-3">{{ form_row(form.paymentStatus) }}</div>
+                    <div class="mb-3">{{ form_row(form.amount) }}</div>
+                    <div class="mb-3">{{ form_row(form.remainingAmount) }}</div>
+                    <div class="mb-3">{{ form_row(form.partialPaymentAmount) }}</div>
+
+                    <h5 class="mb-3 text-primary">
+                        <i class="fas fa-home"></i> {{ 'avis.form.location'|trans }}
+                    </h5>
+                    <div class="mb-3">{{ form_row(form.location) }}</div>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{{ back_path|default(path('app_avis_echeance_index')) }}"
+                       class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> {{ 'avis.show.actions.back'|trans }}
+                    </a>
+                    <button class="btn btn-primary btn-wide">
+                        <i class="fas fa-save"></i> {{ button_label|trans|default('admin.save') }}
+                    </button>
+                </div>
+
+                {{ form_end(form) }}
             </div>
-            {{ form_end(form) }}
         </div>
     </div>
 </div>

@@ -22,5 +22,10 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@tabler/icons": "^3.34.1",
+        "admin-lte": "^4.0.0-rc3",
+        "tabler-icons": "^1.35.0"
     }
 }

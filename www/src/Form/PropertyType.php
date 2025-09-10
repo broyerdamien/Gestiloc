@@ -14,27 +14,55 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type')
-            ->add('name')
-            ->add('address')
-            ->add('building')
-            ->add('etage')
-            ->add('numero')
-            ->add('country')
-            ->add('postCode')
-            ->add('area')
-            ->add('numberOfParts')
-            ->add('bedroom')
-            ->add('bathroom')
-            // ... autres champs ...
+            ->add('type', null, [
+                'label' => 'property.show.table.type',
+            ])
+            ->add('name', null, [
+                'label' => 'property.show.table.name',
+            ])
+            ->add('address', null, [
+                'label' => 'property.show.table.address',
+            ])
+            ->add('building', null, [
+                'label' => 'property.show.table.building',
+            ])
+            ->add('etage', null, [
+                'label' => 'property.show.table.floor',
+            ])
+            ->add('numero', null, [
+                'label' => 'property.show.table.number',
+            ])
+            ->add('country', null, [
+                'label' => 'property.show.table.country',
+            ])
+            ->add('postCode', null, [
+                'label' => 'property.show.table.postcode',
+            ])
+            ->add('area', null, [
+                'label' => 'property.show.table.area',
+            ])
+            ->add('numberOfParts', null, [
+                'label' => 'property.show.table.number_of_parts',
+            ])
+            ->add('bedroom', null, [
+                'label' => 'property.show.table.bedroom',
+            ])
+            ->add('bathroom', null, [
+                'label' => 'property.show.table.bathroom',
+            ])
+            ->add('rentalCharges', null, [
+                'label' => 'property.show.table.rental_charges',
+            ])
             ->add('lodgers', EntityType::class, [
                 'class' => Lodger::class,
-                'choice_label' => 'name', // ou toute autre propriété que vous souhaitez afficher
-                'multiple' => true, // Permet de sélectionner plusieurs lodgers
-                'expanded' => true, // Affiche sous forme de cases à cocher
+                'choice_label' => function (Lodger $lodger) {
+                    return $lodger->getName() . ' ' . $lodger->getFirstname();
+                },
+                'label' => 'lodger.index.title',
+                'multiple' => true,
+                'expanded' => false, // menu déroulant
+                'attr' => ['class' => 'form-select'], // joli rendu bootstrap
             ]);
-        ;
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

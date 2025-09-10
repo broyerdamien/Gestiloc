@@ -7,9 +7,7 @@
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
-
     {% endblock %}
-
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
@@ -17,58 +15,41 @@
 <body>
 <nav class="navbar navbar-expand-lg custom-navbar-bg">
     <div class="container-fluid align-header">
-
-            <a class="navbar-brand" href={{ path('home') }}> <img src="{{ asset('build/images/gestiloc_logo.png') }}"
-                                                                  alt="Bootstrap" width="90" height="90"></a>
-
+        <a class="navbar-brand" href={{ path('home') }}>
+            <img src="{{ asset('build/images/gestiloc_logo.png') }}" alt="Gestiloc" width="90" height="90">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link active home-color" aria-current="page" href={{ path('home') }}>Home</a>
-                </li>
-                <li class="nav-item dropdown txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_lodger_index') }}"> Lodger</a>
-                </li>
-                <li class="nav-item txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_property_index') }}"> Property</a>
+                    <a class="nav-link active home-color" aria-current="page" href={{ path('home') }}>
+                        {{ 'menu.home'|trans }}
+                    </a>
                 </li>
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_location_index') }}"> Location</a>
+                    <a class="nav-link" href="{{ path('app_lodger_index') }}">{{ 'menu.lodger'|trans }}</a>
                 </li>
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link" href="{{ path('app_avis_echeance_index') }}"> Avis d'écheance</a>
+                    <a class="nav-link" href="{{ path('app_property_index') }}">{{ 'menu.property'|trans }}</a>
                 </li>
-{#                <li class="nav-item dropdown txt-menu-header">#}
-{#                    <a class="nav-link dropdown-toggle" href="{{ path('app_lodger_index') }}" role="button"#}
-{#                       data-bs-toggle="dropdown"#}
-{#                       aria-expanded="false">#}
-{#                        Lodger#}
-{#                    </a>#}
-
-{#                    <ul class="dropdown-menu txt-menu-header ">#}
-{#                        <li><a class="dropdown-item" href="#">Action</a></li>#}
-{#                        <li><a class="dropdown-item" href="#">Another action</a></li>#}
-{#                        <li>#}
-{#                            <hr class="dropdown-divider">#}
-{#                        </li>#}
-{#                        <li><a class="dropdown-item" href="#">Something else here</a></li>#}
-{#                    </ul>#}
-{#                </li>#}
                 <li class="nav-item txt-menu-header">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="{{ path('app_location_index') }}">{{ 'menu.location'|trans }}</a>
+                </li>
+                <li class="nav-item txt-menu-header">
+                    <a class="nav-link"
+                       href="{{ path('app_avis_echeance_index') }}">{{ 'menu.avis_echeance'|trans }}</a>
+                </li>
+                <li class="nav-item txt-menu-header">
+                    <a class="nav-link disabled" aria-disabled="true">{{ 'disabled'|trans }}</a>
                 </li>
             </ul>
-            {#            <form class="d-flex" role="search"> #}
-            {#                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> #}
-            {#                <button class="btn btn-outline-success" type="submit">Search</button> #}
-            {#            </form> #}
         </div>
     </div>
 </nav>
+
 {% for label, messages in app.flashes %}
     <div class="alert alert-{{ label }}">
         {% for message in messages %}
@@ -76,9 +57,23 @@
         {% endfor %}
     </div>
 {% endfor %}
-{% block body %} {% endblock %}
-</body>
+
+<!-- sidebar -->
+<div class="d-flex">
+    {% block sidebar %}
+        <aside class="bg-light border-end">
+            {% include '@shared/sidebare.html.twig' %}
+        </aside>
+    {% endblock %}
+
+    <div class="flex-grow-1 p-3">
+        {% block breadcrumb %}{% endblock %}
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
 <footer>
     {% include "shared/footer.html.twig" %}
 </footer>
+</body>
 </html>

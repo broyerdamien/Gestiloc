@@ -47,6 +47,7 @@ $space: (
         space1400: 11.2rem,
         space1600: 12.8rem
 );
+
 // Title
 .title-h1-home {
   h1 {
@@ -69,6 +70,8 @@ $space: (
   font-size: 4rem;
   font-weight: 700;
   line-height: 110%;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   @include media-breakpoint-down(lg) {
     font-size: 3.1rem;
   }
@@ -185,7 +188,7 @@ $space: (
 .button-color {
   @extend %button-base;
   background-color: $blue-primary;
-  //border-radius: 5rem;
+  border-radius: 5rem;
 
   &:hover {
     background-color: $hover-secondary-color;
@@ -209,8 +212,40 @@ $space: (
   display: none;
 }
 
+// Uniformisation des boutons Bootstrap
+.btn,
+.btn-sm,
+.btn-primary,
+.btn-outline-primary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-secondary {
+  padding: 4px 8px !important;
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  border-radius: 4px !important;
+  gap: 0.25rem !important;
+  white-space: nowrap !important;
+  margin-bottom: 0.2rem !important;
+
+  // Icônes FontAwesome
+  i {
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+  }
+}
+.btn-wide {
+  width: 10rem !important;
+  min-width: 10rem !important;
+  height: 3.2rem !important;
+}
+
 // Margin
 .margin-title-bottom {
   margin-bottom: map.get($space, space250);
 }
-

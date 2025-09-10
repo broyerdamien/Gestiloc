@@ -1,26 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Gestiloc{% endblock %}
-
+{% block sidebar %}{% endblock %}
 {% block body %}
     <div class="home-page-session">
-    <section class="gestiloc-container  ">
-        <div class="title-h1-home">
-            <h1> Bienvenue sur {{ website }} </h1>
-        </div>
-        <div class="row">
-            <div class=" col-12 col-lg-6 home-page-logo  logo-home-anim ">
-                <img src="{{ asset('build/images/gestiloc_logo.png') }}" alt="">
+        <section class="gestiloc-container">
+            <div class="title-h1-home">
+                <h1>{{ 'home.welcome'|trans({'{{ website }}': website}) }}</h1>
             </div>
-            <div class="col-12 col-lg-6 home-page-children text-home-anim txt-content">
-                <h2 class="title-h2 margin-title-bottom"> Gérez vos biens immobiliers avec le meilleur logiciel gratuit
-                    de gestion locative immobilière </h2>
-                <p>Gestiloc est le meilleur logiciel de gestion locative immobilière en ligne. Suivi des loyers et
-                    charges,
-                    comptabilité, aide à la déclaration des revenus fonciers...
-                    Les différentes étapes de la vie du contrat de location sont couvertes par notre site.</p>
+            <div class="row">
+                <div class="col-12 col-lg-6 home-page-logo logo-home-anim">
+                    <img src="{{ asset('build/images/gestiloc_logo.png') }}" alt="">
+                </div>
+                <div class="col-12 col-lg-6 home-page-children text-home-anim txt-content">
+                    <h2 class="title-h2 margin-title-bottom">{{ 'home.slogan'|trans }}</h2>
+                    <p>{{ 'home.description'|trans }}</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     </div>
 {% endblock %}

@@ -1,0 +1,294 @@
+home:
+  welcome: "Bienvenue sur {{ website }}"
+  slogan: "Gérez vos biens immobiliers avec le meilleur logiciel gratuit de gestion locative immobilière"
+  description: "Gestiloc est le meilleur logiciel de gestion locative immobilière en ligne. Suivi des loyers et charges, comptabilité, aide à la déclaration des revenus fonciers... Les différentes étapes de la vie du contrat de location sont couvertes par notre site."
+
+menu:
+  home: "Accueil"
+  lodger: "Locataire"
+  property: "Biens"
+  location: "Location"
+  avis_echeance: "Avis d'échéance"
+  disabled: "Désactivé"
+  payments: "Paiements"
+  finances: "Finances"
+
+location:
+  index:
+    title: "Liste des locations"
+    table:
+      id: "Id"
+      type: "Type"
+      property: "Bien"
+      lodger: "Locataire"
+      rent: "Loyer"
+      deposit: "Dépôt"
+      start_date: "Date de début"
+      end_date: "Date de fin"
+      state: "État"
+      actions: "Actions"
+      no_records: "Aucun enregistrement trouvé"
+      no_lodgers: "Aucun locataire"
+    actions:
+      edit: "Modifier"
+      show: "Afficher"
+      delete: "Supprimer"
+      create_new: "Créer une nouvelle location"
+      something_else: "Autre action"
+      update: 'Modifier une location'
+    state:
+      yes: "Oui"
+      no: "Non"
+  form:
+    title: "Formulaire de location"
+    general: "Informations générales"
+    type: "Type de bail"
+    deposit: "Dépôt de garantie"
+    rent: "Loyer"
+    state: "État"
+    dates: "Dates du bail"
+    start_date: "Date de début"
+    end_date: "Date de fin"
+    relations: "Associations"
+    properties: "Biens associés"
+    lodgers: "Locataires associés"
+    back: "Retour à la liste"
+    types:
+      empty: "Bail d'habitation vide"
+      furnished: "Bail d'habitation meublé"
+      student: "Bail meublé étudiant"
+      seasonal: "Bail location saisonière"
+      garage: "Bail parking/garage"
+      commercial: "Bail commercial"
+      professional: "Bail professionnel"
+
+  show:
+    title: "Détail de la location"
+    table:
+      id: "Id"
+      lodgers: "Locataires"
+      no_lodgers: "Aucun locataire"
+      type: "Type"
+      deposit: "Dépôt"
+      start_date: "Date de début"
+      end_date: "Date de fin"
+      state: "État"
+      rent: "Loyer"
+      yes: "Oui"
+      no: "Non"
+
+    avis:
+      title: "Avis d'échéance"
+      id: "Id"
+      start_date: "Date de début"
+      end_date: "Date de fin"
+      payment_status: "Statut de paiement"
+      amount: "Montant"
+      actions: "Actions"
+      no_avis: "Aucun avis d'échéance pour cette location."
+      generate: "Générer un nouvel avis d'échéance"
+    actions:
+      edit: "Modifier"
+      show: "Afficher"
+      delete: "Supprimer"
+      back: "Retour à la liste"
+      something_else: "Autre action"
+
+
+lodger:
+  index:
+    title: "Liste des locataires"
+    table:
+      id: "Id"
+      name: "Nom"
+      property: "Propriété"
+      no_property: "Pas de propriété"
+      address: "Adresse"
+      phone: "Téléphone"
+      mail: "Email"
+      salary: "Salaire"
+      actions: "Actions"
+      no_records: "Aucun locataire trouvé"
+    actions:
+      edit: "Modifier"
+      show: "Afficher"
+      delete: "Supprimer"
+      create_new: "Créer un nouveau locataire"
+      something_else: "Autre action"
+      lodger: 'Modifier le locataire'
+  form:
+    personal: "Informations personnelles"
+    contact: "Coordonnées"
+    job: "Situation professionnelle"
+  show:
+    title: "Détail du locataire"
+    table:
+      id: "Id"
+      name: "Nom"
+      firstname: "Prénom"
+      address: "Adresse"
+      phone: "Téléphone"
+      mail: "Email"
+      date_of_birth: "Date de naissance"
+      job: "Profession"
+      salary: "Salaire"
+      sex: "Sexe"
+    actions:
+      back: "Retour à la liste"
+      edit: "Modifier"
+      delete: "Supprimer"
+
+payment:
+  index:
+    title: "Liste des paiements"
+    table:
+      id: "Id"
+      amount: "Montant"
+      date: "Date de paiement"
+      actions: "Actions"
+      no_records: "Aucun paiement trouvé"
+    actions:
+      show: "Afficher"
+      edit: "Modifier"
+      create_new: "Créer un nouveau paiement"
+  show:
+    title: "Détail du paiement"
+    table:
+      id: "Id"
+      amount: "Montant"
+      date: "Date de paiement"
+    actions:
+      back: "Retour à la liste"
+      edit: "Modifier"
+      delete: "Supprimer"
+  status:
+    en attente: "En attente"
+    partiel: "Partiel"
+    paye: "Payé"
+
+
+property:
+  index:
+    title: "Liste des biens"
+    table:
+      lots: "Lots"
+      type: "Type"
+      area: "Surface"
+      rooms: "Pièces"
+      lodgers: "Locataires"
+      no_lodgers: "Aucun locataire"
+      actions: "Actions"
+      no_records: "Aucun bien trouvé"
+    actions:
+      edit: "Modifier"
+      show: "Afficher"
+      delete: "Supprimer"
+      something_else: "Autre action"
+      create_new: "Créer un nouveau bien"
+      update: 'Modifier un bien'
+
+  show:
+    title: "Détail du bien"
+    table:
+      id: "Id"
+      type: "Type"
+      name: "Nom"
+      address: "Adresse"
+      building: "Bâtiment"
+      floor: "Étage"
+      number: "Numéro"
+      country: "Pays"
+      postcode: "Code postal"
+      area: "Surface"
+      number_of_parts: "Nombre de pièces"
+      bedroom: "Chambre"
+      bathroom: "Salle de bain"
+      rent: "Loyer"
+      rental_charges: "Charges locatives"
+    actions:
+      back: "Retour à la liste"
+      edit: "Modifier"
+      delete: "Supprimer"
+
+  form:
+    subtitle: "Remplissez les informations du bien"
+    general: "Informations générales"
+    details: "Caractéristiques du bien"
+    lodgers: "Locataires associés"
+
+
+footer:
+  brand:
+    title: "Gestiloc"
+    slogan: "Gérez vos biens immobiliers avec le meilleur logiciel gratuit de gestion locative immobilière"
+  links:
+    title: "Liens"
+    facebook: "Facebook"
+    lodger: "Locataire"
+    property: "Bien"
+    location: "Location"
+  contact:
+    title: "Contact"
+    facebook: "Facebook"
+    instagram: "Instagram"
+    linkedin: "LinkedIn"
+    youtube: "YouTube"
+avis:
+  index:
+    title: "Liste des avis d'échéance"
+    table:
+      select: "Sélectionner"
+      property: "Bien"
+      lodger: "Locataire"
+      status: "Statut"
+      amount: "Montant"
+      remaining: "Reste à payer"
+      excess: "Excédent"
+      description: "Description"
+      actions: "Actions"
+      no_property: "Aucun bien"
+      no_lodger: "Aucun locataire"
+      rent_for: "Loyer du"
+      to: "au"
+      received: "Reçu %amount% € le %date%"
+      no_records: "Aucun enregistrement trouvé"
+    actions:
+      edit: "Modifier"
+      show: "Voir"
+      delete: "Supprimer"
+      delete_selected: "Supprimer les sélectionnés"
+      create_new: "Créer un nouvel avis"
+      update: "Modifier un avis"
+  form:
+    dates: "Période"
+    payment: "Paiement"
+    location: "Location associée"
+
+
+  show:
+    title: "Détail de l'avis d'échéance"
+    details: "Informations de l'avis"
+    table:
+      id: "Id"
+      date_start: "Date de début"
+      date_end: "Date de fin"
+      status: "Statut"
+      amount: "Montant"
+      remaining: "Reste à payer"
+    history:
+      title: "Historique des paiements"
+      date: "Date"
+      amount: "Montant"
+      no_payments: "Aucun paiement enregistré pour cet avis."
+    actions:
+      back: "Retour à la liste"
+      edit: "Modifier"
+      delete: "Supprimer"
+
+
+
+admin.save: Enregistrer
+admin.labels: remplissez les champs
+
+
+

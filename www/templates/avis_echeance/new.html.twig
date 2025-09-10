@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New AvisEcheance{% endblock %}
+{% block title %}{{ 'avis.index.actions.create_new'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Create new AvisEcheance</h1>
+    <h1 class="text-center my-5">{{ 'avis.index.actions.create_new'|trans }}</h1>
 
-    {{ include('avis_echeance/_form.html.twig') }}
-
-    <a href="{{ path('app_avis_echeance_index') }}">back to list</a>
+    {{ include('avis_echeance/_form.html.twig', {
+        subtitle: 'avis.index.actions.create_new',
+        back_path: path('app_avis_echeance_index'),
+        button_label: 'admin.save'
+    }) }}
 {% endblock %}

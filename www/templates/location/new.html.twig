@@ -3,9 +3,12 @@
 {% block title %}New Location{% endblock %}
 
 {% block body %}
-    <h1>Create new Location</h1>
+    <h1 class="text-center my-5">{{ 'location.index.actions.create_new'|trans }}</h1>
 
-    {{ include('location/_form.html.twig') }}
+    {{ include('location/_form.html.twig',{
+        subtitle: 'admin.labels',
+        back_path: path('app_lodger_index'),
+        button_label: 'admin.save'
+    }) }}
 
-    <a href="{{ path('app_location_index') }}">back to list</a>
 {% endblock %}

@@ -1,149 +1,125 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Property{% endblock %}
+{% block title %}{{ 'property.show.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Property</h1>
-    <div class="container">
-        <div class="row">
-            <div class=" col-6">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Id</th>
-                        <td>{{ property.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Type</th>
-                        <td>{{ property.type }}</td>
-                    </tr>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ property.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
-                        <td>{{ property.address }}</td>
-                    </tr>
-                    <tr>
-                        <th>Building</th>
-                        <td>{{ property.building }}</td>
-                    </tr>
-                    <tr>
-                        <th>Etage</th>
-                        <td>{{ property.etage }}</td>
-                    </tr>
-                    <tr>
-                        <th>Numero</th>
-                        <td>{{ property.numero }}</td>
-                    </tr>
-                    <tr>
-                        <th>Country</th>
-                        <td>{{ property.country }}</td>
-                    </tr>
-                    <tr>
-                        <th>PostCode</th>
-                        <td>{{ property.postCode }}</td>
-                    </tr>
-                    <tr>
-                        <th>Area</th>
-                        <td>{{ property.area }}</td>
-                    </tr>
-                    <tr>
-                        <th>NumberOfParts</th>
-                        <td>{{ property.numberOfParts }}</td>
-                    </tr>
-                    <tr>
-                        <th>Bedroom</th>
-                        <td>{{ property.bedroom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Bathroom</th>
-                        <td>{{ property.bathroom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Loyer</th>
-                        <td>{{ property.loyer }}</td>
-                    </tr>
-                    <tr>
-                        <th>RentalCharges</th>
-                        <td>{{ property.rentalCharges }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+
+            <div class="text-center mb-4">
+                <h1 class="mb-2">{{ 'property.show.title'|trans }}</h1>
+                {% include 'shared/_breadcrumb.html.twig' with {
+                    breadcrumb_items: [
+                        { 'route': 'home', 'label': 'menu.home' },
+                        { 'route': 'app_property_index', 'label': 'property.index.title' },
+                        { 'label': 'property.show.title' }
+                    ]
+                } %}
             </div>
-            <div class="col-6">
-                <table class="table ">
-                    <tbody>
-                    <tr>
-                        <th>Id</th>
-                        <td>{{ property.id }}</td>
-                    </tr>
-                        <th>Type</th>
-                        <td>{{ property.type }}</td>
-                    </tr>
-                    <tr>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ property.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
-                        <td>{{ property.address }}</td>
-                    </tr>
-                    <tr>
-                        <th>Building</th>
-                        <td>{{ property.building }}</td>
-                    </tr>
-                    <tr>
-                        <th>Etage</th>
-                        <td>{{ property.etage }}</td>
-                    </tr>
-                    <tr>
-                        <th>Numero</th>
-                        <td>{{ property.numero }}</td>
-                    </tr>
-                    <tr>
-                        <th>Country</th>
-                        <td>{{ property.country }}</td>
-                    </tr>
-                    <tr>
-                        <th>PostCode</th>
-                        <td>{{ property.postCode }}</td>
-                    </tr>
-                    <tr>
-                        <th>Area</th>
-                        <td>{{ property.area }}</td>
-                    </tr>
-                    <tr>
-                        <th>NumberOfParts</th>
-                        <td>{{ property.numberOfParts }}</td>
-                    </tr>
-                    <tr>
-                        <th>Bedroom</th>
-                        <td>{{ property.bedroom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Bathroom</th>
-                        <td>{{ property.bathroom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Loyer</th>
-                        <td>{{ property.loyer }}</td>
-                    </tr>
-                    <tr>
-                        <th>RentalCharges</th>
-                        <td>{{ property.rentalCharges }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">{{ property.name }}</h3>
+                    <div>
+                        <a href="{{ path('app_property_edit', {'id': property.id}) }}"
+                           class="btn btn-outline-primary btn-wide">
+                            <i class="fas fa-edit"></i> {{ 'property.show.actions.edit'|trans }}
+                        </a>
+                        <a href="{{ path('app_property_index') }}" class="btn btn-outline-secondary ">
+                            <i class="fas fa-arrow-left"></i> {{ 'property.show.actions.back'|trans }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'property.show.table.id'|trans }}</th>
+                                <td>{{ property.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.type'|trans }}</th>
+                                <td>{{ property.type }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.name'|trans }}</th>
+                                <td>{{ property.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.address'|trans }}</th>
+                                <td>{{ property.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.building'|trans }}</th>
+                                <td>{{ property.building }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.floor'|trans }}</th>
+                                <td>{{ property.etage }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.number'|trans }}</th>
+                                <td>{{ property.numero }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.country'|trans }}</th>
+                                <td>{{ property.country }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.postcode'|trans }}</th>
+                                <td>{{ property.postCode }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.area'|trans }}</th>
+                                <td>{{ property.area }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.number_of_parts'|trans }}</th>
+                                <td>{{ property.numberOfParts }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.bedroom'|trans }}</th>
+                                <td>{{ property.bedroom }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.bathroom'|trans }}</th>
+                                <td>{{ property.bathroom }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'property.show.table.rent'|trans }}</th>
+                                <td>
+                                    {% if property.locations is not empty %}
+                                        <ul class="list-unstyled mb-0">
+                                            {% for location in property.locations %}
+                                                <li>{{ location.loyer is not null ? location.loyer ~ ' €' : '-' }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'property.show.table.rental_charges'|trans }}</th>
+                                <td>{{ property.rentalCharges }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{{ path('app_property_index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> {{ 'property.show.actions.back'|trans }}
+                    </a>
+
+                    <div class="d-flex gap-2">
+                        <a href="{{ path('app_property_edit', {'id': property.id}) }}"
+                           class="btn btn-outline-primary btn-wide">
+                            <i class="fas fa-edit"></i> {{ 'property.show.actions.edit'|trans }}
+                        </a>
+                        {{ include('property/_delete_form.html.twig') }}
+                    </div>
+                </div>
             </div>
-        </div>
-
-    </div>
-    <a href="{{ path('app_property_index') }}">back to list</a>
-
-    <a href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
-
-    {{ include('property/_delete_form.html.twig') }}
 {% endblock %}

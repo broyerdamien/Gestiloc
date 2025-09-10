@@ -49,7 +49,6 @@ class LocationController extends AbstractController
     #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
     public function show(Location $location, AvisEcheanceRepository $avisEcheanceRepository): Response
     {
-
         $avisEcheances = $avisEcheanceRepository->findBy(['location' => $location]);
 
         return $this->render('location/show.html.twig', [

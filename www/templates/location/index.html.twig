@@ -1,107 +1,106 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Location index{% endblock %}
+{% block title %}{{ 'location.index.title'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid h-100">
-        <div class="row flex-nowrap">
-            <!-- Navbar latérale -->
-            {% include '@shared/sidebare.html.twig' %}
-            <main role="main" class="col-md-10 ml-sm-auto px-4">
-                <h2 class='text-center title-h2'>Location index</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-head">
-                                    <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Type</th>
-                                        <th>Property</th>
-                                        <th>lodger</th>
-                                        <th>loyer</th>
-                                        <th>Depot</th>
-                                        <th>StartDate</th>
-                                        <th>EndDate</th>
-                                        <th>Etat</th>
-                                        <th>actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for location in locations %}
-                                        <tr>
-                                            <td>{{ location.id }}</td>
-                                            <td>{{ location.Type }}</td>
-                                            <td> {% if location.properties|length > 0 %}
-                                                    <ul class="list-unstyled">
-                                                        {% for properties in location.properties %}
-                                                            <li>{{ properties.name }} </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% else %}
-                                                    <ul>
-                                                        No lodgers
-                                                    </ul>
-                                                {% endif %}</td>
-                                            <td> {% if location.lodgers|length > 0 %}
-                                                    <ul class="list-unstyled">
-                                                        {% for location in location.lodgers %}
-                                                            <li>{{ location.name }} ({{ location.firstname }})</li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% else %}
-                                                    <ul>
-                                                        No lodgers
-                                                    </ul>
-                                                {% endif %}</td>
-                                            <td>
-                                                <ul>
-                                                    {{ location.loyer }}
-                                                </ul>
-                                            </td>
-                                            <td>{{ location.Depot }}</td>
-                                            <td>{{ location.startDate ? location.startDate|date('d-m-Y') : '' }}</td>
-                                            <td>{{ location.endDate ? location.endDate|date('d-m-Y') : '' }}</td>
-                                            <td>{{ location.etat ? 'Yes' : 'No' }}</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle dropdown-actions"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                        <img src="{{ asset('build/images/three_dots_icon.svg') }}">
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-actions">
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
-                                                        </li>
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
-                                                        </li>
-                                                        <li><a class="dropdown-item" href="#">Something else here</a>
-                                                        </li>
-                                                        <li>
-                                                            {{ include ('location/_delete_form.html.twig') }}
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="7">no records found</td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            <div class="text-center mb-4">
+                <h1 class="mb-2">{{ 'location.index.title'|trans }}</h1>
+                {% include 'shared/_breadcrumb.html.twig' with {
+                    breadcrumb_items: [
+                        { 'route': 'home', 'label': 'menu.home' },
+                        { 'label': 'location.index.title' }
+                    ]
+                } %}
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">{{ 'location.index.title'|trans }}</h3>
+                    <a href="{{ path('app_location_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {{ 'location.index.actions.create_new'|trans }}
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>{{ 'location.index.table.id'|trans }}</th>
+                                <th>{{ 'location.index.table.type'|trans }}</th>
+                                <th>{{ 'location.index.table.property'|trans }}</th>
+                                <th>{{ 'location.index.table.lodger'|trans }}</th>
+                                <th>{{ 'location.index.table.rent'|trans }}</th>
+                                <th>{{ 'location.index.table.deposit'|trans }}</th>
+                                <th>{{ 'location.index.table.start_date'|trans }}</th>
+                                <th>{{ 'location.index.table.end_date'|trans }}</th>
+                                <th>{{ 'location.index.table.state'|trans }}</th>
+                                <th>{{ 'location.index.table.actions'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for location in locations %}
+                                <tr>
+                                    <td>{{ location.id }}</td>
+                                    <td>{{ location.getLabelTypes()|trans }}</td>
+                                    <td>
+                                        {% if location.properties|length > 0 %}
+                                            <ul class="list-unstyled mb-0">
+                                                {% for property in location.properties %}
+                                                    <li>{{ property.name }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <span class="text-muted">{{ 'property.index.table.no_records'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if location.lodgers|length > 0 %}
+                                            <ul class="list-unstyled mb-0">
+                                                {% for lodger in location.lodgers %}
+                                                    <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <span class="text-muted">{{ 'location.index.table.no_lodgers'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ location.loyer is not null ? location.loyer ~ ' €' : '-' }}</td>
+                                    <td>{{ location.depot is not null ? location.depot ~ ' €' : '-' }}</td>
+                                    <td>{{ location.startDate ? location.startDate|date('d-m-Y') : '-' }}</td>
+                                    <td>{{ location.endDate ? location.endDate|date('d-m-Y') : '-' }}</td>
+                                    <td>
+                                        {{ location.etat ? 'location.index.state.yes'|trans : 'location.index.state.no'|trans }}
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex flex-column gap-1 align-items-center">
+                                            <a href="{{ path('app_location_edit', {'id': location.id}) }}"
+                                               class="btn btn-outline-primary btn-wide">
+                                                <i class="fas fa-edit"></i> {{ 'location.index.actions.edit'|trans }}
+                                            </a>
+                                            <a href="{{ path('app_location_show', {'id': location.id}) }}"
+                                               class="btn btn-outline-success btn-wide">
+                                                <i class="fas fa-eye"></i> {{ 'location.index.actions.show'|trans }}
+                                            </a>
+                                            {{ include('location/_delete_form.html.twig') }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="10" class="text-center text-muted">
+                                        {{ 'location.index.table.no_records'|trans }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <a href="{{ path('app_location_new') }}" class="btn button-color ">Create new</a>
+
+                <div class="card-footer text-end">
+                    <a href="{{ path('app_location_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {{ 'location.index.actions.create_new'|trans }}
+                    </a>
                 </div>
-            </main>
-        </div>
-    </div>
+            </div>
 {% endblock %}
