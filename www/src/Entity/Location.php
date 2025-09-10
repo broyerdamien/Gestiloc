@@ -6,17 +6,26 @@ use App\Repository\LocationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Self_;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location
 {
+    const TYPE_EMPTY = 1;
+    const TYPE_FURNISHED = 2;
+    const TYPE_STUDENT = 3;
+    const TYPE_SEASONAL = 4;
+    const TYPE_GARAGE = 5;
+    const TYPE_COMMERCIAL = 6;
+    const TYPE_PROFESSIONAL = 7;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Type = null;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $Type = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $Depot = null;
@@ -47,18 +56,21 @@ class Location
     {
         return $this->lodger;
     }
+
     public function setLodger(?Lodger $lodger): self
     {
         $this->lodger = $lodger;
 
         return $this;
     }
+
     public function setProperty(?Property $property): self
     {
         $this->property = $property;
 
         return $this;
     }
+
     public function __construct()
     {
         $this->properties = new ArrayCollection();
@@ -71,17 +83,17 @@ class Location
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getType(): ?int
     {
         return $this->Type;
     }
 
-    public function setType(?string $Type): static
+    public function setType(?int $Type): static
     {
         $this->Type = $Type;
-
         return $this;
     }
+
 
     public function getDepot(): ?int
     {
@@ -220,4 +232,43 @@ class Location
 
         return $this;
     }
+
+    /**
+     * Return the possible choices for Type of Location.
+     *
+     * @return array
+     */
+
+    public static function getTypesChoices(): array
+    {
+
+        return [
+            'location.form.types.empty' => self::TYPE_EMPTY,
+            'location.form.types.furnished' => self::TYPE_FURNISHED,
+            'location.form.types.student' => self::TYPE_STUDENT,
+            'location.form.types.seasonal' => self::TYPE_SEASONAL,
+            'location.form.types.garage' => self::TYPE_GARAGE,
+            'location.form.types.commercial' => self::TYPE_COMMERCIAL,
+            'location.form.types.professional' => self::TYPE_PROFESSIONAL,
+        ];
+    }
+
+    /**
+     * Get the label for the current Type.
+     *
+     * @return string|null
+     */
+    public function getLabelTypes(): ?string
+    {
+        $types = self::getTypesChoices();
+
+        foreach ($types as $label => $value) {
+            if ($value === $this->Type) {
+                return $label;
+            }
+        }
+        return null;
+    }
+
+
 }

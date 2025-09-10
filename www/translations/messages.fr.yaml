@@ -35,9 +35,32 @@ location:
       delete: "Supprimer"
       create_new: "Créer une nouvelle location"
       something_else: "Autre action"
+      update: 'Modifier une location'
     state:
       yes: "Oui"
       no: "Non"
+  form:
+    title: "Formulaire de location"
+    general: "Informations générales"
+    type: "Type de bail"
+    deposit: "Dépôt de garantie"
+    rent: "Loyer"
+    state: "État"
+    dates: "Dates du bail"
+    start_date: "Date de début"
+    end_date: "Date de fin"
+    relations: "Associations"
+    properties: "Biens associés"
+    lodgers: "Locataires associés"
+    back: "Retour à la liste"
+    types:
+      empty: "Bail d'habitation vide"
+      furnished: "Bail d'habitation meublé"
+      student: "Bail meublé étudiant"
+      seasonal: "Bail location saisonière"
+      garage: "Bail parking/garage"
+      commercial: "Bail commercial"
+      professional: "Bail professionnel"
 
   show:
     title: "Détail de la location"
@@ -53,6 +76,7 @@ location:
       rent: "Loyer"
       yes: "Oui"
       no: "Non"
+
     avis:
       title: "Avis d'échéance"
       id: "Id"
@@ -69,6 +93,7 @@ location:
       delete: "Supprimer"
       back: "Retour à la liste"
       something_else: "Autre action"
+
 
 lodger:
   index:
@@ -90,6 +115,28 @@ lodger:
       delete: "Supprimer"
       create_new: "Créer un nouveau locataire"
       something_else: "Autre action"
+      lodger: 'Modifier le locataire'
+  form:
+    personal: "Informations personnelles"
+    contact: "Coordonnées"
+    job: "Situation professionnelle"
+  show:
+    title: "Détail du locataire"
+    table:
+      id: "Id"
+      name: "Nom"
+      firstname: "Prénom"
+      address: "Adresse"
+      phone: "Téléphone"
+      mail: "Email"
+      date_of_birth: "Date de naissance"
+      job: "Profession"
+      salary: "Salaire"
+      sex: "Sexe"
+    actions:
+      back: "Retour à la liste"
+      edit: "Modifier"
+      delete: "Supprimer"
 
 payment:
   index:
@@ -120,8 +167,6 @@ payment:
     paye: "Payé"
 
 
-
-
 property:
   index:
     title: "Liste des biens"
@@ -140,6 +185,7 @@ property:
       delete: "Supprimer"
       something_else: "Autre action"
       create_new: "Créer un nouveau bien"
+      update: 'Modifier un bien'
 
   show:
     title: "Détail du bien"
@@ -163,6 +209,13 @@ property:
       back: "Retour à la liste"
       edit: "Modifier"
       delete: "Supprimer"
+
+  form:
+    subtitle: "Remplissez les informations du bien"
+    general: "Informations générales"
+    details: "Caractéristiques du bien"
+    lodgers: "Locataires associés"
+
 
 footer:
   brand:
@@ -205,7 +258,37 @@ avis:
       delete: "Supprimer"
       delete_selected: "Supprimer les sélectionnés"
       create_new: "Créer un nouvel avis"
+      update: "Modifier un avis"
+  form:
+    dates: "Période"
+    payment: "Paiement"
+    location: "Location associée"
 
+
+  show:
+    title: "Détail de l'avis d'échéance"
+    details: "Informations de l'avis"
+    table:
+      id: "Id"
+      date_start: "Date de début"
+      date_end: "Date de fin"
+      status: "Statut"
+      amount: "Montant"
+      remaining: "Reste à payer"
+    history:
+      title: "Historique des paiements"
+      date: "Date"
+      amount: "Montant"
+      no_payments: "Aucun paiement enregistré pour cet avis."
+    actions:
+      back: "Retour à la liste"
+      edit: "Modifier"
+      delete: "Supprimer"
+
+
+
+admin.save: Enregistrer
+admin.labels: remplissez les champs
 
 
 

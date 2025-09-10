@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Lodger{% endblock %}
+{% block title %}{{ 'lodger.index.actions.create_new'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Create new Lodger</h1>
+    <h1 class="text-center my-5">{{ 'lodger.index.actions.create_new'|trans }}</h1>
 
-    {{ include('lodger/_form.html.twig') }}
-
-    <a href="{{ path('app_lodger_index') }}">back to list</a>
+    {{ include('lodger/_form.html.twig', {
+        subtitle: 'admin.labels',
+        back_path: path('app_lodger_index'),
+        button_label: 'admin.save'
+    }) }}
 {% endblock %}

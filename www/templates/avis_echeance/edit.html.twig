@@ -3,12 +3,11 @@
 {% block title %}Edit AvisEcheance{% endblock %}
 
 {% block body %}
-    <h1>Edit AvisEcheance</h1>
+    <h1 class="text-center my-5">{{ 'avis.index.actions.update'|trans }}</h1>
 
-    {{ include('avis_echeance/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_avis_echeance_index') }}">back to list</a>
-
-    {{ include('avis_echeance/_delete_form.html.twig') }}
-
+    {{ include('avis_echeance/_form.html.twig', {
+        subtitle: 'avis.index.actions.update',
+        back_path: path('app_avis_echeance_index'),
+        button_label: 'admin.save'
+    }) }}
 {% endblock %}

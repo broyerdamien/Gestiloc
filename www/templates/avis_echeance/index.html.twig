@@ -3,135 +3,123 @@
 {% block title %}{{ 'avis.index.title'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid h-100">
-        <div class="row flex-nowrap">
-            <!-- Navbar latérale -->
-            {% include '@shared/sidebare.html.twig' %}
-            <main role="main" class="col-md-10 ml-sm-auto px-4">
-                <h2 class='text-center title-h2'>{{ 'avis.index.title'|trans }}</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-12">
-                            <div class="table-responsive">
-                                <form method="post" action="{{ path('app_avis_echeance_delete_selected') }}">
-                                    <table class="table table-head table-dropdown">
-                                        <thead>
-                                        <tr>
-                                            <th>{{ 'avis.index.table.select'|trans }}</th>
-                                            <th>{{ 'avis.index.table.property'|trans }}</th>
-                                            <th>{{ 'avis.index.table.lodger'|trans }}</th>
-                                            <th>{{ 'avis.index.table.status'|trans }}</th>
-                                            <th>{{ 'avis.index.table.amount'|trans }}</th>
-                                            <th>{{ 'avis.index.table.remaining'|trans }}</th>
-                                            <th>{{ 'avis.index.table.excess'|trans }}</th>
-                                            <th>{{ 'avis.index.table.description'|trans }}</th>
-                                            <th>{{ 'avis.index.table.actions'|trans }}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for avis_echeance in avis_echeances %}
-                                            <tr class="status-{{ avis_echeance.paymentStatus.value|lower|replace({' ': '-'}) }}">
-                                                <td>
-                                                    <input type="checkbox" name="avis_echeances[]"
-                                                           value="{{ avis_echeance.id }}"
-                                                           class="delete-checkbox"
-                                                           id="delete-button">
-                                                </td>
-                                                <td>
-                                                    {% for property in avis_echeance.location.properties %}
-                                                        {{ property.name }}
-                                                        <br>{{ property.numero }} {{ property.address }}
-                                                        <br>{{ property.postCode }} {{ property.country }}
-                                                    {% else %}
-                                                        {{ 'avis.index.table.no_property'|trans }}
-                                                    {% endfor %}
-                                                </td>
-                                                <td>
-                                                    {% for lodger in avis_echeance.location.lodgers %}
-                                                        {{ lodger.name }} ({{ lodger.firstname }})
-                                                    {% else %}
-                                                        {{ 'avis.index.table.no_lodger'|trans }}
-                                                    {% endfor %}
-                                                </td>
-                                                <td>
-                                                    <select name="payment_status" class="form-select"
-                                                            data-id="{{ avis_echeance.id }}">
-                                                        {% for status in payment_statuses %}
-                                                            <option value="{{ status.value }}"
-                                                                    {% if avis_echeance.paymentStatus.value == status.value %}selected{% endif %}>
-                                                                {{ ('payment.status.' ~ status.value)|trans }}
-                                                            </option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </td>
-                                                <td>{{ avis_echeance.amount }}</td>
-                                                <td>{{ avis_echeance.remainingAmount }}</td>
-                                                <td>{{ avis_echeance.excessAmount ?? 0 }}</td>
-                                                <td>
-                                                    {{ 'avis.index.table.rent_for'|trans }} :
-                                                    <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }}
-                                                    {{ 'avis.index.table.to'|trans }} {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
-                                                    <br>
-                                                    {% for payment in avis_echeance.payments %}
-                                                        <ul>
-                                                            <li>
-                                                                {{ 'avis.index.table.received'|trans({'%amount%': payment.amount, '%date%': payment.paymentDate ? payment.paymentDate|date('d-m-Y') : 'N/A'}) }}
-                                                            </li>
-                                                        </ul>
-                                                    {% endfor %}
-                                                </td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle dropdown-actions"
-                                                                type="button" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                            <img src="{{ asset('build/images/three_dots_icon.svg') }}">
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-actions">
-                                                            <li>
-                                                                <a class="dropdown-item"
-                                                                   href="{{ path('app_avis_echeance_edit', {'id': avis_echeance.id}) }}">
-                                                                    {{ 'avis.index.actions.edit'|trans }}
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-item"
-                                                                   href="{{ path('app_avis_echeance_show', {'id': avis_echeance.id}) }}">
-                                                                    {{ 'avis.index.actions.show'|trans }}
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <button class="btn delete-btn button-delete"
-                                                                        data-id="{{ avis_echeance.id }}"
-                                                                        data-token="{{ csrf_token('delete' ~ avis_echeance.id) }}">
-                                                                    {{ 'avis.index.actions.delete'|trans }}
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td colspan="9">{{ 'avis.index.table.no_records'|trans }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                    <button type="submit" class="btn button-color delete-selected-btn">
-                                        {{ 'avis.index.actions.delete_selected'|trans }}
+    <div class="text-center mb-4">
+        <h1 class="mb-2">{{ 'avis.index.title'|trans }}</h1>
+        {% include 'shared/_breadcrumb.html.twig' with {
+            breadcrumb_items: [
+                { 'route': 'home', 'label': 'menu.home' },
+                { 'label': 'avis.index.title' }
+            ]
+        } %}
+    </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <a href="{{ path('app_avis_echeance_new') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> {{ 'avis.index.actions.create_new'|trans }}
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form method="post" action="{{ path('app_avis_echeance_delete_selected') }}">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>{{ 'avis.index.table.select'|trans }}</th>
+                        <th>{{ 'avis.index.table.property'|trans }}</th>
+                        <th>{{ 'avis.index.table.lodger'|trans }}</th>
+                        <th>{{ 'avis.index.table.status'|trans }}</th>
+                        <th>{{ 'avis.index.table.amount'|trans }}</th>
+                        <th>{{ 'avis.index.table.remaining'|trans }}</th>
+                        <th>{{ 'avis.index.table.excess'|trans }}</th>
+                        <th>{{ 'avis.index.table.description'|trans }}</th>
+                        <th>{{ 'avis.index.table.actions'|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for avis_echeance in avis_echeances %}
+                        <tr>
+                            <td><input type="checkbox" name="avis_echeances[]" value="{{ avis_echeance.id }}"></td>
+                            <td>
+                                {% for property in avis_echeance.location.properties %}
+                                    <strong>{{ property.name }}</strong><br>
+                                    {{ property.numero }} {{ property.address }}<br>
+                                    {{ property.postCode }} {{ property.country }}
+                                {% else %}
+                                    <span class="text-muted">{{ 'avis.index.table.no_property'|trans }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for lodger in avis_echeance.location.lodgers %}
+                                    {{ lodger.name }} {{ lodger.firstname }}
+                                {% else %}
+                                    <span class="text-muted">{{ 'avis.index.table.no_lodger'|trans }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if avis_echeance.paymentStatus.value == 'en attente' %}
+                                    <span class="badge bg-warning">{{ ('payment.status.' ~ avis_echeance.paymentStatus.value)|trans }}</span>
+                                {% elseif avis_echeance.paymentStatus.value == 'partiel' %}
+                                    <span class="badge bg-info">{{ ('payment.status.' ~ avis_echeance.paymentStatus.value)|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-success">{{ ('payment.status.' ~ avis_echeance.paymentStatus.value)|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ avis_echeance.amount }} €</td>
+                            <td>{{ avis_echeance.remainingAmount }} €</td>
+                            <td>{{ avis_echeance.excessAmount ?? 0 }} €</td>
+                            <td>
+                                {{ 'avis.index.table.rent_for'|trans }} :
+                                <br>{{ avis_echeance.dateDebut ? avis_echeance.dateDebut|date('d-m-Y') : '' }}
+                                {{ 'avis.index.table.to'|trans }} {{ avis_echeance.dateFin ? avis_echeance.dateFin|date('d-m-Y') : '' }}
+                                <br>
+                                {% for payment in avis_echeance.payments %}
+                                    <ul class="mb-0">
+                                        <li>
+                                            {{ 'avis.index.table.received'|trans({
+                                                '%amount%': payment.amount,
+                                                '%date%': payment.paymentDate ? payment.paymentDate|date('d-m-Y') : 'N/A'
+                                            }) }}
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex flex-column gap-1 align-items-center">
+                                    <a href="{{ path('app_avis_echeance_edit', {'id': avis_echeance.id}) }}"
+                                       class="btn btn-sm btn-outline-primary btn-wide">
+                                        <i class="fas fa-edit"></i> {{ 'avis.index.actions.edit'|trans }}
+                                    </a>
+                                    <a href="{{ path('app_avis_echeance_show', {'id': avis_echeance.id}) }}"
+                                       class="btn btn-sm btn-outline-success btn-wide">
+                                        <i class="fas fa-eye"></i> {{ 'avis.index.actions.show'|trans }}
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-danger delete-btn btn-wide"
+                                            data-id="{{ avis_echeance.id }}"
+                                            data-token="{{ csrf_token('delete' ~ avis_echeance.id) }}">
+                                        <i class="fas fa-trash"></i> {{ 'avis.index.actions.delete'|trans }}
                                     </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <a href="{{ path('app_avis_echeance_new') }}" class="btn button-color">
-                        {{ 'avis.index.actions.create_new'|trans }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center text-muted">
+                                {{ 'avis.index.table.no_records'|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> {{ 'avis.index.actions.delete_selected'|trans }}
+                    </button>
+                    <a href="{{ path('app_avis_echeance_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {{ 'avis.index.actions.create_new'|trans }}
                     </a>
                 </div>
-            </main>
+            </form>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}

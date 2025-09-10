@@ -1,0 +1,17 @@
+{% if breadcrumb_items is defined and breadcrumb_items|length > 0 %}
+    <nav aria-label="breadcrumb" class="mt-2">
+        <ol class="breadcrumb justify-content-center">
+            {% for item in breadcrumb_items %}
+                <li class="breadcrumb-item{% if loop.last %} active{% endif %}"{% if loop.last %} aria-current="page"{% endif %}>
+                    {% if item.route is defined and not loop.last %}
+                        <a href="{{ item.params is defined ? path(item.route, item.params) : path(item.route) }}">
+                            {{ item.label|trans }}
+                        </a>
+                    {% else %}
+                        {{ item.label|trans }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+{% endif %}

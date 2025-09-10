@@ -2,15 +2,13 @@
 
 namespace App\Service;
 
+use App\Entity\AvisEcheance;
+use App\Entity\Location;
 use App\Entity\Payment;
+use App\Enum\PaymentStatus;
 use App\Repository\PaymentRepository;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Carbon\Carbon;
-use App\Entity\Location;
-use App\Entity\AvisEcheance;
-use App\Enum\PaymentStatus;
-use http\Exception\InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
 
 class AvisEcheanceService
@@ -24,6 +22,9 @@ class AvisEcheanceService
         $this->paymentRepository = $paymentRepository;
     }
 
+    /**
+     * Générer un avis d'échéance pour une location donnée
+     */
     public function generateOneAvisEcheance(Location $location): AvisEcheance
     {
         $avisEcheance = new AvisEcheance();
@@ -32,22 +33,40 @@ class AvisEcheanceService
         $avisEcheance->setPaymentStatus(PaymentStatus::EN_ATTENTE);
         $avisEcheance->setAmount($location->getLoyer());
         $avisEcheance->setLocation($location);
+
         $this->entityManager->persist($avisEcheance);
         $this->entityManager->flush();
 
         return $avisEcheance;
     }
 
+    /**
+     * Générer des avis d’échéance pour toutes les locations
+     */
     public function generateAllAvisEcheances(): array
     {
         $avisEcheances = [];
         $locations = $this->entityManager->getRepository(Location::class)->findAll();
+
         foreach ($locations as $location) {
             $avisEcheances[] = $this->generateOneAvisEcheance($location);
         }
+
         return $avisEcheances;
     }
 
+    /**
+     * Supprimer un avis d’échéance
+     */
+    public function deleteAvisEcheance(AvisEcheance $avisEcheance): void
+    {
+        $this->entityManager->remove($avisEcheance);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Supprimer plusieurs avis d’échéance
+     */
     public function deleteSelectedAvisEcheances(array $selectedIds): void
     {
         $avisEcheances = $this->entityManager->getRepository(AvisEcheance::class)->findBy(['id' => $selectedIds]);
@@ -59,13 +78,13 @@ class AvisEcheanceService
         $this->entityManager->flush();
     }
 
+    /**
+     * Ajouter un paiement partiel sur un avis d’échéance
+     */
     public function addPaymentAvisEcheance(AvisEcheance $avisEcheance, float $paymentAmount): Payment
     {
-        if ($avisEcheance->getPaymentStatus() !== PaymentStatus::PARTIEL) {
-            throw new \InvalidArgumentException('Le paiement ne peut être ajouté que si le statut est PARTIEL.');
-        }
         if ($paymentAmount <= 0) {
-            throw new InvalidArgumentException('le montant du payment doit être superieur à 0');
+            throw new \InvalidArgumentException('Le montant du paiement doit être supérieur à 0.');
         }
 
         $payment = new Payment();
@@ -77,38 +96,57 @@ class AvisEcheanceService
         $this->entityManager->persist($payment);
         $this->entityManager->flush();
 
-        $this->updatePayementStatus($avisEcheance);
+        $this->updatePaymentStatus($avisEcheance);
+
         return $payment;
     }
 
-    public function updatePayementStatus(AvisEcheance $avisEcheance): void
+    /**
+     * Mettre à jour le statut de paiement d’un avis d’échéance
+     */
+    public function updatePaymentStatus(AvisEcheance $avisEcheance): void
     {
         $totalPaid = $this->paymentRepository->getTotalPaidForAvisEcheance($avisEcheance) ?? 0;
         $remainingAmount = $avisEcheance->getAmount() - $totalPaid;
-        $avisEcheance->setRemainingAmount($remainingAmount);
 
         if ($remainingAmount < 0) {
-
-            $excessAmount = abs($remainingAmount); // Convertir en positif
             $avisEcheance->setRemainingAmount(0);
-            $avisEcheance->setExcessAmount($excessAmount);
+            $avisEcheance->setExcessAmount(abs($remainingAmount));
         } else {
             $avisEcheance->setRemainingAmount($remainingAmount);
-            $avisEcheance->setExcessAmount(0); // Réinitialiser l'excédent si tout est normal
+            $avisEcheance->setExcessAmount(0);
         }
+
         if ($remainingAmount <= 0) {
             $avisEcheance->setPaymentStatus(PaymentStatus::PAYE);
-        } else {
+        } elseif ($remainingAmount < $avisEcheance->getAmount()) {
             $avisEcheance->setPaymentStatus(PaymentStatus::PARTIEL);
+        } else {
+            $avisEcheance->setPaymentStatus(PaymentStatus::EN_ATTENTE);
         }
+
         $this->entityManager->persist($avisEcheance);
         $this->entityManager->flush();
     }
+
+    /**
+     * Gérer un paiement partiel depuis un formulaire
+     */
     public function handlePartialPayment(AvisEcheance $avisEcheance, FormInterface $form): void
     {
         $partialPaymentAmount = $form->get('partialPaymentAmount')->getData();
+
         if ($partialPaymentAmount > 0) {
             $this->addPaymentAvisEcheance($avisEcheance, $partialPaymentAmount);
         }
+    }
+
+    /**
+     * Changer le statut de paiement (sans ajouter de paiement)
+     */
+    public function changePaymentStatus(AvisEcheance $avisEcheance, PaymentStatus $status): void
+    {
+        $avisEcheance->setPaymentStatus($status);
+        $this->entityManager->flush();
     }
 }

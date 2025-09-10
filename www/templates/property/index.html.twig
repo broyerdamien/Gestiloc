@@ -3,100 +3,88 @@
 {% block title %}{{ 'property.index.title'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid h-100">
-        <div class="row flex-nowrap">
-            <!-- Navbar latérale -->
-            {% include '@shared/sidebare.html.twig' %}
-            <main role="main" class="col-md-10 ml-sm-auto px-4">
-                <h2 class='text-center title-h2'>{{ 'property.index.title'|trans }}</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-head">
-                                    <thead>
-                                    <tr>
-                                        <th>{{ 'property.index.table.lots'|trans }}</th>
-                                        <th>{{ 'property.index.table.type'|trans }}</th>
-                                        <th>{{ 'property.index.table.area'|trans }}</th>
-                                        <th>{{ 'property.index.table.rooms'|trans }}</th>
-                                        <th>{{ 'property.index.table.lodgers'|trans }}</th>
-                                        <th>{{ 'property.index.table.actions'|trans }}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for property in properties %}
-                                        <tr>
-                                            <td>
-                                                {{ property.name }}<br>
-                                                {{ property.numero }} {{ property.address }}<br>
-                                                {{ property.postCode }} {{ property.country }}
-                                            </td>
-                                            <td>{{ property.type }}</td>
-                                            <td>{{ property.area }}</td>
-                                            <td>{{ property.numberOfParts }}</td>
-                                            <td>
-                                                {% if property.lodgers|length > 0 %}
-                                                    <ul class="list-unstyled">
-                                                        {% for lodger in property.lodgers %}
-                                                            <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% else %}
-                                                    <ul>
-                                                        {{ 'property.index.table.no_lodgers'|trans }}
-                                                    </ul>
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle dropdown-actions"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                        <img src="{{ asset('build/images/three_dots_icon.svg') }}">
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-actions">
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                               href="{{ path('app_property_edit', {'id': property.id}) }}">
-                                                                {{ 'property.index.actions.edit'|trans }}
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                               href="{{ path('app_property_show', {'id': property.id}) }}">
-                                                                {{ 'property.index.actions.show'|trans }}
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item" href="#">
-                                                                {{ 'property.index.actions.something_else'|trans }}
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            {{ include('property/_delete_form.html.twig') }}
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="6">{{ 'property.index.table.no_records'|trans }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <a href="{{ path('app_property_new') }}" class="btn button-color">
-                        {{ 'property.index.actions.create_new'|trans }}
+            <div class="text-center mb-4">
+                <h1 class="mb-2">{{ 'property.index.title'|trans }}</h1>
+                {% include 'shared/_breadcrumb.html.twig' with {
+                    breadcrumb_items: [
+                        { 'route': 'home', 'label': 'menu.home' },
+                        { 'label': 'property.index.title' }
+                    ]
+                } %}
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">{{ 'property.index.title'|trans }}</h3>
+                    <a href="{{ path('app_property_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {{ 'property.index.actions.create_new'|trans }}
                     </a>
                 </div>
-            </main>
-        </div>
-    </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>{{ 'property.index.table.lots'|trans }}</th>
+                                <th>{{ 'property.index.table.type'|trans }}</th>
+                                <th>{{ 'property.index.table.area'|trans }}</th>
+                                <th>{{ 'property.index.table.rooms'|trans }}</th>
+                                <th>{{ 'property.index.table.lodgers'|trans }}</th>
+                                <th>{{ 'property.index.table.actions'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for property in properties %}
+                                <tr>
+                                    <td>
+                                        {{ property.name }}<br>
+                                        {{ property.numero }} {{ property.address }}<br>
+                                        {{ property.postCode }} {{ property.country }}
+                                    </td>
+                                    <td>{{ property.type }}</td>
+                                    <td>{{ property.area }}</td>
+                                    <td>{{ property.numberOfParts }}</td>
+                                    <td>
+                                        {% if property.lodgers|length > 0 %}
+                                            <ul class="list-unstyled mb-0">
+                                                {% for lodger in property.lodgers %}
+                                                    <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <span class="text-muted">{{ 'property.index.table.no_lodgers'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex flex-column gap-1 align-items-center">
+                                            <a href="{{ path('app_property_edit', {'id': property.id}) }}"
+                                               class="btn btn-outline-primary btn-wide">
+                                                <i class="fas fa-edit"></i> {{ 'property.index.actions.edit'|trans }}
+                                            </a>
+                                            <a href="{{ path('app_property_show', {'id': property.id}) }}"
+                                               class="btn btn-outline-success btn-wide">
+                                                <i class="fas fa-eye"></i> {{ 'property.index.actions.show'|trans }}
+                                            </a>
+                                            {{ include('property/_delete_form.html.twig') }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">
+                                        {{ 'property.index.table.no_records'|trans }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end">
+                    <a href="{{ path('app_property_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {{ 'property.index.actions.create_new'|trans }}
+                    </a>
+                </div>
+            </div>
 {% endblock %}

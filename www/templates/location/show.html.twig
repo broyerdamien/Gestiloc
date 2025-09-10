@@ -3,131 +3,144 @@
 {% block title %}{{ 'location.show.title'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid h-100">
-        <div class="row flex-nowrap">
-            <!-- Navbar latérale -->
-            {% include '@shared/sidebare.html.twig' %}
-            <main role="main" class="col-md-10 ml-sm-auto px-4">
-                <h2 class='text-center title-h2'>{{ 'location.show.title'|trans }}</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-show">
-                                    <tbody>
-                                    <tr>
-                                        <th>{{ 'location.show.table.id'|trans }}</th>
-                                        <td>{{ location.id }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.lodgers'|trans }}</th>
-                                        <td>
-                                            {% if location.lodgers|length > 0 %}
-                                                <ul class="list-unstyled">
-                                                    {% for lodger in location.lodgers %}
-                                                        <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            {% else %}
-                                                <ul>
-                                                    {{ 'location.show.table.no_lodgers'|trans }}
-                                                </ul>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.type'|trans }}</th>
-                                        <td>{{ location.Type }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.deposit'|trans }}</th>
-                                        <td>{{ location.Depot }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.start_date'|trans }}</th>
-                                        <td>{{ location.startDate ? location.startDate|date('d-m-Y') : '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.end_date'|trans }}</th>
-                                        <td>{{ location.endDate ? location.endDate|date('d-m-Y') : '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.state'|trans }}</th>
-                                        <td>{{ location.etat ? 'location.show.table.yes'|trans : 'location.show.table.no'|trans }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ 'location.show.table.rent'|trans }}</th>
-                                        <td>{{ location.loyer }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <!-- Avis d'échéance -->
-                                <div>
-                                    <h2>{{ 'location.show.avis.title'|trans }}</h2>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>{{ 'location.show.avis.id'|trans }}</th>
-                                            <th>{{ 'location.show.avis.start_date'|trans }}</th>
-                                            <th>{{ 'location.show.avis.end_date'|trans }}</th>
-                                            <th>{{ 'location.show.avis.payment_status'|trans }}</th>
-                                            <th>{{ 'location.show.avis.amount'|trans }}</th>
-                                            <th>{{ 'location.show.avis.actions'|trans }}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for avis in avis_echeances %}
-                                            <tr>
-                                                <td>{{ avis.id }}</td>
-                                                <td>{{ avis.dateDebut|date('d-m-Y') }}</td>
-                                                <td>{{ avis.dateFin|date('d-m-Y') }}</td>
-                                                <td>{{ avis.paymentStatus.value }}</td>
-                                                <td>{{ avis.amount }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle dropdown-actions"
-                                                                type="button" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                            <img src="{{ asset('build/images/three_dots_icon.svg') }}">
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-actions">
-                                                            <li><a class="dropdown-item"
-                                                                   href="{{ path('app_avis_echeance_edit', {'id': avis.id}) }}">{{ 'location.show.actions.edit'|trans }}</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                   href="{{ path('app_avis_echeance_show', {'id': avis.id}) }}">{{ 'location.show.actions.show'|trans }}</a></li>
-                                                            <li><a class="dropdown-item" href="#">{{ 'location.show.actions.something_else'|trans }}</a></li>
-                                                            <li>
-                                                                {{ include('avis_echeance/_delete_form.html.twig', { avis_echeance: avis }) }}
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td colspan="6">{{ 'location.show.avis.no_avis'|trans }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <!-- Bouton pour générer un nouvel avis -->
-                                <form method="post" action="{{ path('app_location_generate_avis_echeance', {id: location.id}) }}">
-                                    <button type="submit" class="btn button-color">
-                                        {{ 'location.show.avis.generate'|trans }}
-                                    </button>
-                                </form>
-
-                                <a href="{{ path('app_location_index') }}">{{ 'location.show.actions.back'|trans }}</a>
-                                <a href="{{ path('app_location_edit', {'id': location.id}) }}">{{ 'location.show.actions.edit'|trans }}</a>
-                                {{ include('location/_delete_form.html.twig') }}
-                            </div>
-                        </div>
+            <div class="text-center mb-4">
+                <h1 class="mb-2">{{ 'location.show.title'|trans }}</h1>
+                {% include 'shared/_breadcrumb.html.twig' with {
+                    breadcrumb_items: [
+                        { 'route': 'home', 'label': 'menu.home' },
+                        { 'route': 'app_location_index', 'label': 'location.index.title' },
+                        { 'label': 'location.show.title' }
+                    ]
+                } %}
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">#{{ location.id }} - {{ location.type }}</h3>
+                    <div>
+                        <a href="{{ path('app_location_edit', {'id': location.id}) }}"
+                           class="btn btn-outline-primary btn-wide">
+                            <i class="fas fa-edit"></i> {{ 'location.show.actions.edit'|trans }}
+                        </a>
+                        <a href="{{ path('app_location_index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> {{ 'location.show.actions.back'|trans }}
+                        </a>
                     </div>
                 </div>
-            </main>
-        </div>
-    </div>
+
+                <div class="card-body">
+                    <!-- Infos Location -->
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                        <tr>
+                            <th>{{ 'location.show.table.id'|trans }}</th>
+                            <td>{{ location.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.lodgers'|trans }}</th>
+                            <td>
+                                {% if location.lodgers|length > 0 %}
+                                    <ul class="list-unstyled mb-0">
+                                        {% for lodger in location.lodgers %}
+                                            <li>{{ lodger.name }} ({{ lodger.firstname }})</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <span class="text-muted">{{ 'location.show.table.no_lodgers'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.type'|trans }}</th>
+                            <td>{{ location.type }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.deposit'|trans }}</th>
+                            <td>{{ location.depot is not null ? location.depot ~ ' €' : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.start_date'|trans }}</th>
+                            <td>{{ location.startDate ? location.startDate|date('d-m-Y') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.end_date'|trans }}</th>
+                            <td>{{ location.endDate ? location.endDate|date('d-m-Y') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.state'|trans }}</th>
+                            <td>
+                                {{ location.etat ? 'location.show.table.yes'|trans : 'location.show.table.no'|trans }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'location.show.table.rent'|trans }}</th>
+                            <td>{{ location.loyer is not null ? location.loyer ~ ' €' : '-' }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Avis d'échéance -->
+                    <h3 class="mt-4">{{ 'location.show.avis.title'|trans }}</h3>
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>{{ 'location.show.avis.id'|trans }}</th>
+                            <th>{{ 'location.show.avis.start_date'|trans }}</th>
+                            <th>{{ 'location.show.avis.end_date'|trans }}</th>
+                            <th>{{ 'location.show.avis.payment_status'|trans }}</th>
+                            <th>{{ 'location.show.avis.amount'|trans }}</th>
+                            <th>{{ 'location.show.avis.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for avis in avis_echeances %}
+                            <tr>
+                                <td>{{ avis.id }}</td>
+                                <td>{{ avis.dateDebut ? avis.dateDebut|date('d-m-Y') : '-' }}</td>
+                                <td>{{ avis.dateFin ? avis.dateFin|date('d-m-Y') : '-' }}</td>
+                                <td>{{ avis.paymentStatus.value|trans }}</td>
+                                <td>{{ avis.amount is not null ? avis.amount ~ ' €' : '-' }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex flex-column gap-1 align-items-center">
+                                        <a href="{{ path('app_avis_echeance_edit', {'id': avis.id}) }}"
+                                           class="btn btn-outline-primary btn-wide">
+                                            <i class="fas fa-edit"></i> {{ 'location.show.actions.edit'|trans }}
+                                        </a>
+                                        <a href="{{ path('app_avis_echeance_show', {'id': avis.id}) }}"
+                                           class="btn btn-outline-success btn-wide">
+                                            <i class="fas fa-eye"></i> {{ 'location.show.actions.show'|trans }}
+                                        </a>
+                                        {{ include('avis_echeance/_delete_form.html.twig', { avis_echeance: avis }) }}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">
+                                    {{ 'location.show.avis.no_avis'|trans }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <form method="post" action="{{ path('app_location_generate_avis_echeance', {id: location.id}) }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> {{ 'location.show.avis.generate'|trans }}
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{{ path('app_location_index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> {{ 'location.show.actions.back'|trans }}
+                    </a>
+
+                    <div class="d-flex gap-2">
+                        <a href="{{ path('app_location_edit', {'id': location.id}) }}"
+                           class="btn btn-outline-primary btn-wide">
+                            <i class="fas fa-edit"></i> {{ 'location.show.actions.edit'|trans }}
+                        </a>
+                        {{ include('location/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
 {% endblock %}

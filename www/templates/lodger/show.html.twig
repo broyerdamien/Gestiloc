@@ -1,57 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'lodger.show.title'|trans }}{% endblock %}
+{% block title %}{{ 'lodger.index.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'lodger.show.title'|trans }}</h1>
+    <div class="text-center mb-4">
+        <h1 class="mb-2">{{ 'lodger.index.title'|trans }}</h1>
+        {% include 'shared/_breadcrumb.html.twig' with {
+            breadcrumb_items: [
+                { 'route': 'home', 'label': 'menu.home' },
+                { 'route': 'app_lodger_index', 'label': 'lodger.index.title' },
+                { 'label': 'lodger.index.title' }
+            ]
+        } %}
+    </div>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>{{ 'lodger.show.table.id'|trans }}</th>
-            <td>{{ lodger.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.name'|trans }}</th>
-            <td>{{ lodger.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.firstname'|trans }}</th>
-            <td>{{ lodger.firstname }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.address'|trans }}</th>
-            <td>{{ lodger.address }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.phone'|trans }}</th>
-            <td>{{ lodger.phone }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.mail'|trans }}</th>
-            <td>{{ lodger.mail }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.date_of_birth'|trans }}</th>
-            <td>{{ lodger.dateOfBirth ? lodger.dateOfBirth|date('d-m-Y') : '' }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.job'|trans }}</th>
-            <td>{{ lodger.job }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.salary'|trans }}</th>
-            <td>{{ lodger.salary }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'lodger.show.table.sex'|trans }}</th>
-            <td>{{ lodger.sex }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title">{{ lodger.name }} {{ lodger.firstname }}</h3>
+            <div>
+                <a href="{{ path('app_lodger_edit', {'id': lodger.id}) }}"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i> {{ 'lodger.index.actions.edit'|trans }}
+                </a>
+                <a href="{{ path('app_lodger_index') }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> {{ 'lodger.index.actions.create_new'|trans }}
+                </a>
+            </div>
+        </div>
 
-    <a href="{{ path('app_lodger_index') }}">{{ 'lodger.show.actions.back'|trans }}</a>
-    <a href="{{ path('app_lodger_edit', {'id': lodger.id}) }}">{{ 'lodger.show.actions.edit'|trans }}</a>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                <tr>
+                    <th>{{ 'lodger.index.table.id'|trans }}</th>
+                    <td>{{ lodger.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'lodger.index.table.name'|trans }}</th>
+                    <td>{{ lodger.name }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'lodger.index.table.name'|trans }}</th>
+                    <td>{{ lodger.firstname }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'lodger.index.table.address'|trans }}</th>
+                    <td>{{ lodger.address }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'lodger.index.table.phone'|trans }}</th>
+                    <td>{{ lodger.phone }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'lodger.index.table.mail'|trans }}</th>
+                    <td>{{ lodger.mail }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'lodger.index.table.salary'|trans }}</th>
+                    <td>{{ lodger.salary }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-    {{ include('lodger/_delete_form.html.twig') }}
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{{ path('app_lodger_index') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> {{ 'avis.show.actions.back'|trans }}
+            </a>
+
+            <div class="d-flex gap-2">
+                <a href="{{ path('app_lodger_edit', {'id': lodger.id}) }}"
+                   class="btn btn-outline-primary btn-wide">
+                    <i class="fas fa-edit"></i> {{ 'lodger.index.actions.edit'|trans }}
+                </a>
+                {{ include('lodger/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
