@@ -24,6 +24,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^7.0.1",
         "@tabler/icons": "^3.34.1",
         "admin-lte": "^4.0.0-rc3",
         "tabler-icons": "^1.35.0"
